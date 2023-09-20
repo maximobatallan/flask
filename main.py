@@ -25,16 +25,7 @@ def webhook_whatsapp():
     #ESCRIBIMOS EL NUMERO DE TELEFONO Y EL MENSAJE EN EL ARCHIVO TEXTO
     #SI HAY UN MENSAJE
     if mensaje is not None:
-      from rivescript import RiveScript
-      #INICIALIZAMOS RIVESCRIPT Y CARGAMOS LA CONVERSACION
-      bot = RiveScript()
-      bot.load_file('restaurante.rive')
-      bot.sort_replies()
-      #OBTENEMOS LA RESPUESTA
-      respuesta= bot.reply("localuser",mensaje)
-      respuesta=respuesta.replace("\\n","\\\n")
-      respuesta=respuesta.replace("\\","")
-      #CONECTAMOS A LA BASE DE DATOS
+      
       import mysql.connector
       mydb = mysql.connector.connect(
           host = "containers-us-west-111.railway.app",

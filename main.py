@@ -1,4 +1,3 @@
-#ChatBot inteligente con WhatsApp en Python
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
@@ -26,9 +25,37 @@ def webhook_whatsapp():
     #ESCRIBIMOS EL NUMERO DE TELEFONO Y EL MENSAJE EN EL ARCHIVO TEXTO
     #SI HAY UN MENSAJE
     if mensaje is not None:
-      f = open("texto.txt", "w")
-      f.write(mensaje)
-      f.close()
+      from rivescript import RiveScript
+      #INICIALIZAMOS RIVESCRIPT Y CARGAMOS LA CONVERSACION
+      bot = RiveScript()
+      bot.load_file('restaurante.rive')
+      bot.sort_replies()
+      #OBTENEMOS LA RESPUESTA
+      respuesta= bot.reply("localuser",mensaje)
+      respuesta=respuesta.replace("\\n","\\\n")
+      respuesta=respuesta.replace("\\","")
+      #CONECTAMOS A LA BASE DE DATOS
+      import mysql.connector
+      mydb = mysql.connector.connect(
+          host = "containers-us-west-111.railway.app",
+          user = "root",
+          password = "gnEfc1BQNlv2sA8RStCJ",
+          database='railway'
+      )
+      mycursor = mydb.cursor()
+      query="SELECT count(id) AS cantidad FROM registro WHERE id_wa='" + idWA + "';"
+      mycursor.execute("SELECT count(id) AS cantidad FROM registro WHERE id_wa='" + idWA + "';")
+
+      cantidad, = mycursor.fetchone()
+      cantidad=str(cantidad)
+      cantidad=int(cantidad)
+      if cantidad==0 :
+        sql = ("INSERT INTO registro"+ 
+        "(mensaje_recibido,mensaje_enviado,id_wa      ,timestamp_wa   ,telefono_wa) VALUES "+
+        "('"+mensaje+"'   ,'"+respuesta+"','"+idWA+"' ,'"+timestamp+"','"+telefonoCliente+"');")
+        mycursor.execute(sql)
+        mydb.commit()
+
       #RETORNAMOS EL STATUS EN UN JSON
       return jsonify({"status": "success"}, 200)
 

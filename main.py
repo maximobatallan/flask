@@ -7,7 +7,7 @@ def webhook_whatsapp():
     #SI HAY DATOS RECIBIDOS VIA GET
     if request.method == "GET":
         #SI EL TOKEN ES IGUAL AL QUE RECIBIMOS
-        if request.args.get('hub.verify_token') == "HolaNovato":
+        if request.args.get('hub.verify_token') == "retobot":
             #ESCRIBIMOS EN EL NAVEGADOR EL VALOR DEL RETO RECIBIDO DESDE FACEBOOK
             return request.args.get('hub.challenge')
         else:

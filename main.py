@@ -4,6 +4,7 @@ app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
 @app.route("/webhook/", methods=["POST", "GET"])
 def webhook_whatsapp():
+    
     #SI HAY DATOS RECIBIDOS VIA GET
     if request.method == "GET":
         #SI EL TOKEN ES IGUAL AL QUE RECIBIMOS

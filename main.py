@@ -15,7 +15,7 @@ def webhook_whatsapp():
     #RECIBIMOS TODOS LOS DATOS ENVIADO VIA JSON
     data=request.get_json()
     #EXTRAEMOS EL NUMERO DE TELEFONO Y EL MANSAJE
-    telefonoCliente=data['entry'][0]['changes'][0]['value']['messages'][0]['from']
+    telefonoCliente=data['value']['messages'][0]['from']
     #EXTRAEMOS EL TELEFONO DEL CLIENTE
     mensaje=data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
     #EXTRAEMOS EL ID DE WHATSAPP DEL ARRAY

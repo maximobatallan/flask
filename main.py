@@ -17,13 +17,7 @@ def webhook_whatsapp():
     #EXTRAEMOS EL NUMERO DE TELEFONO Y EL MANSAJE
     telefonoCliente=data
     #EXTRAEMOS EL TELEFONO DEL CLIENTE
-    mensaje=data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
-    #EXTRAEMOS EL ID DE WHATSAPP DEL ARRAY
-    idWA=data['entry'][0]['changes'][0]['value']['messages'][0]['id']
-    #EXTRAEMOS EL TIEMPO DE WHATSAPP DEL ARRAY
-    timestamp=data['entry'][0]['changes'][0]['value']['messages'][0]['timestamp']
-    #ESCRIBIMOS EL NUMERO DE TELEFONO Y EL MENSAJE EN EL ARCHIVO TEXTO
-    #SI HAY UN MENSAJE
+    mensaje=data
     if mensaje is not None:
       
       import mysql.connector

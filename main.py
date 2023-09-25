@@ -4,7 +4,7 @@ app = Flask(__name__)
 @app.route("/webhook/", methods=["POST", "GET"])
 def webhook_whatsapp():
     #SI HAY DATOS RECIBIDOS VIA GET
-    def verify(request):
+ 
     # Parse params from the webhook verification request
     mode = request.args.get("hub.mode")
     token = request.args.get("hub.verify_token")

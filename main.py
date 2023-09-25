@@ -12,7 +12,7 @@ def webhook_whatsapp():
     # Check if a token and mode were sent
     if mode and token:
         # Check the mode and token sent are correct
-        if mode == "subscribe" and token == river:
+        if mode == "subscribe" and token == "river":
             # Respond with 200 OK and challenge token from the request
             print("WEBHOOK_VERIFIED")
             return challenge, 200

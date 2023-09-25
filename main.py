@@ -22,7 +22,7 @@ def webhook_whatsapp():
             return jsonify({"status": "error", "message": "Verification failed"}), 403
     else:
             
-        else:
+       
         # Responds with '400 Bad Request' if verify tokens do not match
         print("MISSING_PARAMETER")
         return jsonify({"status": "error", "message": "Missing parameters"}), 400

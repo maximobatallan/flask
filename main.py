@@ -9,21 +9,29 @@ def verify(request):
     token = request.args.get("hub.verify_token")
     challenge = request.args.get("hub.challenge")
     # Check if a token and mode were sent
-    if mode and token:
-        # Check the mode and token sent are correct
-        if mode == "subscribe" and token == "Retobao":
-            # Respond with 200 OK and challenge token from the request
-            print("WEBHOOK_VERIFIED")
-            return challenge, 200
+    if request.method == "GET":
+        if mode and token:
+            # Check the mode and token sent are correct
+            if mode == "subscribe" and token == "Retobao":
+                # Respond with 200 OK and challenge token from the request
+                print("WEBHOOK_VERIFIED")
+                return challenge, 200
+            else:
+                # Responds with '403 Forbidden' if verify tokens do not match
+                print("VERIFICATION_FAILED")
+                return jsonify({"status": "error", "message": "Verification failed"}), 403
         else:
-            # Responds with '403 Forbidden' if verify tokens do not match
-            print("VERIFICATION_FAILED")
-            return jsonify({"status": "error", "message": "Verification failed"}), 403
-    else:
-        # Responds with '400 Bad Request' if verify tokens do not match
-        print("MISSING_PARAMETER")
-        return jsonify({"status": "error", "message": "Missing parameters"}), 400
-    
+            # Responds with '400 Bad Request' if verify tokens do not match
+            print("MISSING_PARAMETER")
+            return jsonify({"status": "error", "message": "Missing parameters"}), 400
+    data=request.get_json()
+    #EXTRAEMOS EL NUMERO DE TELEFONO Y EL MANSAJE
+    mensaje="Telefono:"+data['entry'][0]['changes'][0]['value']['messages'][0]['from']
+    mensaje=mensaje+"|Mensaje:"+data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
+    #ESCRIBIMOS EL NUMERO DE TELEFONO Y EL MENSAJE EN EL ARCHIVO TEXTO
+    print(mensaje)
+    #RETORNAMOS EL STATUS EN UN JSON
+    return jsonify({"status": "success"}, 200)
     
     
 #INICIAMSO FLASK

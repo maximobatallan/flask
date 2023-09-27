@@ -42,8 +42,10 @@ def verify(request):
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
     if request.method == "GET":
+        print("hola")
         return verify(request)
     elif request.method == "POST":
+        print("river")
         return handle_message(request)
 
 

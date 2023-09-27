@@ -2,7 +2,12 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
-@app.route("/webhook/", methods=["POST", "GET"])
+def handle_message(request):
+    # Parse Request body in json format
+    body = request.get_json()
+    print(f"request body: {body}")
+
+
 def verify(request):
     # Parse params from the webhook verification request
     mode = request.args.get("hub.mode")
@@ -33,7 +38,15 @@ def verify(request):
     #RETORNAMOS EL STATUS EN UN JSON
     return jsonify({"status": "success"}, 200)
     
-    
+
+@app.route("/webhook", methods=["POST", "GET"])
+def webhook():
+    if request.method == "GET":
+        return verify(request)
+    elif request.method == "POST":
+        return handle_message(request)
+
+
 #INICIAMSO FLASK
 if __name__ == "__main__":
   app.run(debug=True)

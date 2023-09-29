@@ -1,29 +1,33 @@
+import threading
 from flask import Flask, jsonify, request
 import requests
 import json
 app = Flask(__name__)
+
+lock = threading.Lock()
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
 def handle_message():
+    with lock:
     # Parse requests body in json format
-    url = "https://graph.facebook.com/v17.0/137446296107512/messages"
-
-    payload = json.dumps({
-      "messaging_product": "whatsapp",
-      "recipient_type": "individual",
-      "to": "54111523965421",
-      "type": "text",
-      "text": {
-        "preview_url": False,
-        "body": "River"
-      }
-    })
-    headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
-    }
-    response = requests.post(url, data=payload, headers=headers)
-    #response = requests.request("POST", url, headers=headers, data=payload)
-    print('esta aca')
+        url = "https://graph.facebook.com/v17.0/137446296107512/messages"
+    
+        payload = json.dumps({
+          "messaging_product": "whatsapp",
+          "recipient_type": "individual",
+          "to": "54111523965421",
+          "type": "text",
+          "text": {
+            "preview_url": False,
+            "body": "River"
+          }
+        })
+        headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
+        }
+        response = requests.post(url, data=payload, headers=headers)
+        #response = requests.request("POST", url, headers=headers, data=payload)
+        print('esta aca')
     return jsonify({"status": "success"}), 200
 
 
@@ -70,4 +74,4 @@ def webhook():
 
 #INICIAMSO FLASK
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=False)

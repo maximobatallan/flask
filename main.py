@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import json
 app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
-def handle_message(request):
+def handle_message():
     # Parse request body in json format
     url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 
@@ -64,7 +64,7 @@ def webhook():
         return verify(request)
     elif request.method == "POST":
         print('post')
-        return handle_message(request)
+        return handle_message()
 
 
 #INICIAMSO FLASK

@@ -61,9 +61,9 @@ def verify(request):
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
     if request.method == "GET":
-        return verify()
+        return verify(request)
     elif request.method == "POST":
-        return handle_message()
+        return handle_message(request)
 
 
 #INICIAMSO FLASK

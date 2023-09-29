@@ -22,6 +22,7 @@ def webhook_whatsapp():
             return "Error de autentificacion."
 
     # SI EL MENSAJE YA FUE ENVIADO, RETORNAMOS UNA RESPUESTA EXITOSA
+    print('pregunta por mensaje')
     if message_sent:
         return jsonify({"status": "success"}), 200
 
@@ -46,7 +47,7 @@ def webhook_whatsapp():
 
     # ESTABLECEMOS LA VARIABLE `message_sent` EN `True`
     message_sent = True
-
+    print('mensaje true')
     # RETORNAMOS UNA RESPUESTA EXITOSA
     return jsonify({"status": "success"}), 200
 

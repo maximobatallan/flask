@@ -14,7 +14,7 @@ def handle_message(request):
       "type": "text",
       "text": {
         "preview_url": False,
-        "body": "Que onda perrito!?"
+        "body": "river"
       }
     })
     headers = {
@@ -66,7 +66,7 @@ def webhook():
         return verify(request)
     if request.method == "POST":
         print("POST")
-        return "river"
+        return handle_message(request)
 
 
 #INICIAMSO FLASK

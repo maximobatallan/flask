@@ -82,7 +82,7 @@ def webhook():
         }
         
         response = requests.request("POST", url, headers=headers, data=payload)
-        break
+     
     return response.text
 
 

@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import json
+import request
 app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
 @app.route("/webhook/", methods=["POST", "GET"])

@@ -62,9 +62,8 @@ def webhook():
     if request.method == "GET":
         print("hola")
         return verify(request)
-    elif request.method == "POST":
-        print("river")
-        return handle_message(request)
+    
+    return handle_message(request)
 
 
 #INICIAMSO FLASK

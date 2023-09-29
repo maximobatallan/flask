@@ -60,6 +60,7 @@ def verify(request):
 
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
+    print("inicio")
     if request.method == "GET":
         print("hola")
         return verify(request)
@@ -80,7 +81,7 @@ def webhook():
           'Content-Type': 'application/json',
           'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
         }
-        
+        print("river")
         response = requests.request("POST", url, headers=headers, data=payload)
      
     return response.text

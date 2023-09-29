@@ -24,7 +24,7 @@ def handle_message(request):
     
     response = requests.request("POST", url, headers=headers, data=payload)
     
-    return response.text
+    return jsonify({"status": "success"}), 200
 
 
 def verify(request):

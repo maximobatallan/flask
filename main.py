@@ -1,56 +1,69 @@
 from flask import Flask, jsonify, request
-import json
 import requests
-
+import json
 app = Flask(__name__)
 
-message_sent = False
-
-# CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
-@app.route("/webhook/", methods=["POST", "GET"])
-def webhook_whatsapp():
-    global message_sent
-
-    # SI HAY DATOS RECIBIDOS VIA GET
-    if request.method == "GET":
-        # SI EL TOKEN ES IGUAL AL QUE RECIBIMOS
-        if request.args.get('hub.verify_token') == "Retobao" and request.args.get("hub.mode") == "subscribe":
-            # ESCRIBIMOS EN EL NAVEGADOR EL VALOR DEL RETO RECIBIDO DESDE FACEBOOK
-            return request.args.get('hub.challenge')
-        else:
-            # SI NO SON IGUALES RETORNAMOS UN MENSAJE DE ERROR
-            return "Error de autentificacion."
-
-    # SI EL MENSAJE YA FUE ENVIADO, RETORNAMOS UNA RESPUESTA EXITOSA
-    print('pregunta por mensaje')
-    if message_sent:
-        return jsonify({"status": "success"}), 200
-
-    # ENVIAMOS EL MENSAJE A WHATSAPP
+#CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
+def handle_message():
+     print(
+# Parse requests body in json format
     url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 
     payload = json.dumps({
-        "messaging_product": "whatsapp",
-        "recipient_type": "individual",
-        "to": "54111523965421",
-        "type": "text",
-        "text": {
-            "preview_url": False,
-            "body": "River"
-        }
+      "messaging_product": "whatsapp",
+      "recipient_type": "individual",
+      "to": "54111523965421",
+      "type": "text",
+      "text": {
+        "preview_url": False,
+        "body": "River"
+      }
     })
     headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
     }
     response = requests.post(url, data=payload, headers=headers)
-
-    # ESTABLECEMOS LA VARIABLE `message_sent` EN `True`
-    message_sent = True
-    print('mensaje true')
-    # RETORNAMOS UNA RESPUESTA EXITOSA
+    #response = requests.request("POST", url, headers=headers, data=payload)
+    print('esta aca')
     return jsonify({"status": "success"}), 200
 
-# INICIAMSO FLASK
+
+def verify(requests):
+    # Parse params from the webhook verification requests
+    mode = requests.args.get("hub.mode")
+    token = requests.args.get("hub.verify_token")
+    challenge = requests.args.get("hub.challenge")
+    # Check if a token and mode were sent
+    if requests.method == "GET":
+        if mode and token:
+            # Check the mode and token sent are correct
+            if mode == "subscribe" and token == "Retobao":
+                # Respond with 200 OK and challenge token from the requests
+                print("WEBHOOK_VERIFIED")
+                return challenge, 200
+            else:
+                # Responds with '403 Forbidden' if verify tokens do not match
+                print("VERIFICATION_FAILED")
+                return jsonify({"status": "error", "message": "Verification failed"}), 403
+        else:
+            # Responds with '400 Bad requests' if verify tokens do not match
+            print("MISSING_PARAMETER")
+            return jsonify({"status": "error", "message": "Missing parameters"}), 400
+    
+    return jsonify({"status": "success"}, 200)
+    
+
+@app.route("/webhook", methods=["POST", "GET"])
+def webhook():
+    if request.method == "GET":    
+        print('get')
+        return verify(requests)
+    elif request.method == "POST":
+        print(request.get_json())
+        return handle_message()
+
+
+#INICIAMSO FLASK
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)

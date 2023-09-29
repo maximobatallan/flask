@@ -64,7 +64,7 @@ def webhook():
         print("hola")
         return verify(request)
     
-        url = "https://graph.facebook.com/v17.0/137446296107512/messages"
+    url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 
     payload = json.dumps({
       "messaging_product": "whatsapp",

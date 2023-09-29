@@ -14,7 +14,7 @@ def handle_message(request):
       "type": "text",
       "text": {
         "preview_url": False,
-        "body": "river"
+        "body": "qqqq"
       }
     })
     headers = {
@@ -60,13 +60,10 @@ def verify(request):
 
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
-    print("inicio")
     if request.method == "GET":
-        print("GET")
-        return verify(request)
-    if request.method == "POST":
-        print("POST")
-        return handle_message(request)
+        return verify()
+    elif request.method == "POST":
+        return handle_message()
 
 
 #INICIAMSO FLASK

@@ -14,15 +14,15 @@ def handle_message():
       "type": "text",
       "text": {
         "preview_url": False,
-        "body": "qqqq"
+        "body": "River"
       }
     })
     headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
     }
-    
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.post(url, data=payload, headers=headers)
+    #response = requests.request("POST", url, headers=headers, data=payload)
     print('esta aca')
     return jsonify({"status": "success"}), 200
 

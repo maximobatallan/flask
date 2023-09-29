@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
 def handle_message():
-     print(
+     
 # Parse requests body in json format
     url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 

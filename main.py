@@ -1,12 +1,22 @@
 from flask import Flask, jsonify, request
 import requests
 import json
-app = Flask(__name__)
 
+
+app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
-def handle_message():
-     
-# Parse requests body in json format
+@app.route("/webhook/", methods=["POST", "GET"])
+def webhook_whatsapp():
+    #SI HAY DATOS RECIBIDOS VIA GET
+    if request.method == "GET":
+        #SI EL TOKEN ES IGUAL AL QUE RECIBIMOS
+        if request.args.get('hub.verify_token') == "Retobao" and requests.args.get("hub.mode") == "suscribe":
+            #ESCRIBIMOS EN EL NAVEGADOR EL VALOR DEL RETO RECIBIDO DESDE FACEBOOK
+            return request.args.get('hub.challenge')
+        else:
+            #SI NO SON IGUALES RETORNAMOS UN MENSAJE DE ERROR
+          return "Error de autentificacion."
+    #RECIBIMOS TODOS LOS DATOS ENVIADO VIA JSON
     url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 
     payload = json.dumps({
@@ -28,41 +38,8 @@ def handle_message():
     print('esta aca')
     return jsonify({"status": "success"}), 200
 
-
-def verify(requests):
-    # Parse params from the webhook verification requests
-    mode = requests.args.get("hub.mode")
-    token = requests.args.get("hub.verify_token")
-    challenge = requests.args.get("hub.challenge")
-    # Check if a token and mode were sent
-    if requests.method == "GET":
-        if mode and token:
-            # Check the mode and token sent are correct
-            if mode == "subscribe" and token == "Retobao":
-                # Respond with 200 OK and challenge token from the requests
-                print("WEBHOOK_VERIFIED")
-                return challenge, 200
-            else:
-                # Responds with '403 Forbidden' if verify tokens do not match
-                print("VERIFICATION_FAILED")
-                return jsonify({"status": "error", "message": "Verification failed"}), 403
-        else:
-            # Responds with '400 Bad requests' if verify tokens do not match
-            print("MISSING_PARAMETER")
-            return jsonify({"status": "error", "message": "Missing parameters"}), 400
-    
-    return jsonify({"status": "success"}, 200)
-    
-
-@app.route("/webhook", methods=["POST", "GET"])
-def webhook():
-    if request.method == "GET":    
-        print('get')
-        return verify(requests)
-    elif request.method == "POST":
-        print(request.get_json())
-        return handle_message()
-
+if __name__ == "__main__":
+    app.run(debug=True, use_reloader=True)
 
 #INICIAMSO FLASK
 if __name__ == "__main__":

@@ -1,10 +1,9 @@
 from flask import Flask, jsonify, request
 import json
-import requests
 app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA
 def handle_message(request):
-    # Parse Request body in json format
+    # Parse request body in json format
     url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 
     payload = json.dumps({
@@ -22,7 +21,7 @@ def handle_message(request):
       'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
     }
     
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = request.request("POST", url, headers=headers, data=payload)
     print('esta aca')
     return jsonify({"status": "success"}), 200
 
@@ -45,7 +44,7 @@ def verify(request):
                 print("VERIFICATION_FAILED")
                 return jsonify({"status": "error", "message": "Verification failed"}), 403
         else:
-            # Responds with '400 Bad Request' if verify tokens do not match
+            # Responds with '400 Bad request' if verify tokens do not match
             print("MISSING_PARAMETER")
             return jsonify({"status": "error", "message": "Missing parameters"}), 400
     data=request.get_json()

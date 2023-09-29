@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import requests
 import json
 app = Flask(__name__)
@@ -60,10 +60,10 @@ def verify(requests):
 
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
-    if requests.method == "GET":    
+    if request.method == "GET":    
         print('get')
         return verify(requests)
-    elif requests.method == "POST":
+    elif request.method == "POST":
         print('post')
         return handle_message()
 

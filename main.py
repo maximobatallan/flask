@@ -65,26 +65,8 @@ def webhook():
         print("hola")
         return verify(request)
     if request.method == "POST":
-        url = "https://graph.facebook.com/v17.0/137446296107512/messages"
-    
-        payload = json.dumps({
-          "messaging_product": "whatsapp",
-          "recipient_type": "individual",
-          "to": "54111523965421",
-          "type": "text",
-          "text": {
-            "preview_url": False,
-            "body": "Que onda perrito!?"
-          }
-        })
-        headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer EAAVzJc6WKFUBO8FqpQZCLOxMZAY7Qvioxv1jFx2p5jEyMXSKCg3RC2ngZBg9MRbSdFeSfGhpDpMBBfqWTcCECvpzj27exeMashZAD2ZA6b24YBRwW9t3ZCiY0sfHn2pt2FvKHEmpUemhZAB78n8ezTjzkZAkDxZAZBVhdHGRvQfb2NTGxu5Gdfj67VjZBkOZCNwuqFG0IIzDFiSJUg71jGS48mqm12NhpEsZD'
-        }
-        print("river")
-        response = requests.request("POST", url, headers=headers, data=payload)
-     
-    return response.text
+        print("hola")
+        
 
 
 #INICIAMSO FLASK

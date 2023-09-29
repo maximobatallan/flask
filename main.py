@@ -17,6 +17,12 @@ def webhook_whatsapp():
             #SI NO SON IGUALES RETORNAMOS UN MENSAJE DE ERROR
           return "Error de autentificacion."
     #RECIBIMOS TODOS LOS DATOS ENVIADO VIA JSON
+
+
+    data = request.data
+
+        # Imprime el contenido
+    print(data)
     url = "https://graph.facebook.com/v17.0/137446296107512/messages"
 
     payload = json.dumps({

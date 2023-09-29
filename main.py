@@ -23,7 +23,7 @@ def handle_message(request):
     }
     
     response = requests.request("POST", url, headers=headers, data=payload)
-    
+    print('esta aca')
     return jsonify({"status": "success"}), 200
 
 
@@ -61,11 +61,13 @@ def verify(request):
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
     if request.method == "GET":
+        print('get')
         return verify(request)
     elif request.method == "POST":
+        print('post')
         return handle_message(request)
 
 
 #INICIAMSO FLASK
 if __name__ == "__main__":
-  app.run(debug=False)
+    app.run(debug=True, use_reloader=True)

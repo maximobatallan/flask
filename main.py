@@ -21,7 +21,7 @@ def handle_message():
     })
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer EAAVzJc6WKFUBOZBuh95CEXwZCZBp1SKqTWiAbJTpWKzM2tk4ZBuBSHNbBf5p8l9SrEZCDMJbX4LrvyGu2zWLOZB9fV9BWWphpQu1vZC3DTw2xFl8rZBV5jI7mjvpatb5CyWV8YQKJ8qYyIC7dPkMoYnAtGlknYhCZAOx5XFSWbVbpJF2gITZBMPeeQN5B4pFce9csQ33dZBMAZCOAiBUgQ6P2geQ4wecXrkZD'
+      'Authorization': 'Bearer EAAVzJc6WKFUBO2AfQ2BXqrPXJufQZBJL7xCi0yNzcJLZBJE7D7o8350LDsDP635XjZARjBcRN7ZB6TCzbBCUPHAQZB3aTYuiM1Ut9C4SAmJxbAftrZAkRenrzQLqDoYpnNi7LqdI3kHsbrt7smAvRqxdyGqmSqRsWyMsnia9ErF0zfzZBDdBDd8NuUzTTGZB15VFOwSsef1Hi1QKSsKYC80hCygFCsgZD'
     }
     response = requests.post(url, data=payload, headers=headers)
     #response = requests.request("POST", url, headers=headers, data=payload)

@@ -62,11 +62,11 @@ def verify(request):
 def webhook():
     print("inicio")
     if request.method == "GET":
-        print("hola")
+        print("GET")
         return verify(request)
     if request.method == "POST":
-        print("hola")
-        
+        print("POST")
+        return "river"
 
 
 #INICIAMSO FLASK

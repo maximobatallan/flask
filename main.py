@@ -21,7 +21,7 @@ def webhook_whatsapp():
 
     data = request.data
     json_data = json.loads(data)
- 
+    body = request.get_json()
    
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
     if message["type"] == "text":

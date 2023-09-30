@@ -22,14 +22,12 @@ def webhook_whatsapp():
     data = request.data
     json_data = json.loads(data)
     body = request.get_json()
-   
-    message = body["entry"][0]["changes"][0]["value"]["messages"][0]
-    if message["type"] == "text":
+    try:
         message_body = message["text"]["body"]
         # Imprime el contenido
         print(message_body)
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
-    
+        print('estamosaca')
         payload = json.dumps({
           "messaging_product": "whatsapp",
           "recipient_type": "individual",

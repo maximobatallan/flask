@@ -21,8 +21,8 @@ def webhook_whatsapp():
 
     data = request.data
     json_data = json.loads(data)
-    print(type(json_data))
-
+    print(json_data)
+    print(data)
     
    
 # Verifica si el diccionario contiene la clave "body"
@@ -47,7 +47,7 @@ def webhook_whatsapp():
         }
         response = requests.post(url, data=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers, data=payload)
-    print('No esta body')
+ 
     
     return jsonify({"status": "success"}), 200
 

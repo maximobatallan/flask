@@ -22,7 +22,8 @@ def webhook_whatsapp():
     data = request.data
     json_data = json.loads(data)
     body = request.get_json()
-    
+    message_body = body["text"]["body"]
+    print(message_body)
     try:
         message_body = body["text"]["body"]
     

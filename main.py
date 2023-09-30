@@ -22,9 +22,11 @@ def webhook_whatsapp():
     data = request.data
     json_data = json.loads(data)
     body = request.get_json()
+    
     try:
-        message_body = message["text"]["body"]
-        # Imprime el contenido
+        message_body = json_data["text"]["body"]
+    
+   
         print(message_body)
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
         print('estamosaca')
@@ -44,7 +46,8 @@ def webhook_whatsapp():
         }
         response = requests.post(url, data=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers, data=payload)
- 
+    except KeyError as e:
+        print(f"Error al acceder a la clave: {e}")
     
     return jsonify({"status": "success"}), 200
 

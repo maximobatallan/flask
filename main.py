@@ -23,7 +23,7 @@ def webhook_whatsapp():
     json_data = json.loads(data)
 
     print(json_data)
-    if 'text' in data and 'body' in data['text']
+    if 'text' in data and 'body' in data['text']:
     print('primer if')
 # Verifica si el diccionario contiene la clave "body"
     if "text" in json_data:

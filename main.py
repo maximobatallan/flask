@@ -21,12 +21,10 @@ def webhook_whatsapp():
 
     data = request.data
     json_data = json.loads(data)
-    print(json_data)
-    print(data)
-    
+ 
    
 # Verifica si el diccionario contiene la clave "body"
-    if "text" in json_data:
+    if "messages" in data["entry"][0]["changes"][0]["value"]:
         # Imprime el contenido
         print(siiiiiiiiiiii)
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"

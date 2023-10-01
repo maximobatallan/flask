@@ -20,15 +20,16 @@ def webhook_whatsapp():
 
 
     data = request.data
-    json_data = json.loads(data)
-    body = request.get_json()
-    message_body = body["text"]["body"]
-    print(message_body)
-    try:
-        message_body = body["text"]["body"]
+    datos_serializados_str = data.decode('utf-8')
     
-   
-        print(message_body)
+    
+    mensaje = json.loads(datos_serializados_str)
+    
+    if 'body' in json.dumps(mensaje):
+        print("La clave 'body' está en el JSON.")
+    else:
+        print("La clave 'body' no está en el JSON.")
+      
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
         print('estamosaca')
         payload = json.dumps({
@@ -47,9 +48,8 @@ def webhook_whatsapp():
         }
         response = requests.post(url, data=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers, data=payload)
-    except KeyError as e:
-        print(f"Error al acceder a la clave: {e}")
     
+        
     return jsonify({"status": "success"}), 200
 
 if __name__ == "__main__":

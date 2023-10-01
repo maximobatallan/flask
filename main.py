@@ -27,9 +27,6 @@ def webhook_whatsapp():
     
     if 'body' in json.dumps(mensaje):
         print("La clave 'body' está en el JSON.")
-    else:
-        print("La clave 'body' no está en el JSON.")
-      
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
         print('estamosaca')
         payload = json.dumps({
@@ -39,7 +36,7 @@ def webhook_whatsapp():
           "type": "text",
           "text": {
             "preview_url": False,
-            "body": "River"
+            "body": 'Somos los Pibes que Alentamos a River Plate'
           }
         })
         headers = {
@@ -48,6 +45,10 @@ def webhook_whatsapp():
         }
         response = requests.post(url, data=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers, data=payload)
+    else:
+        print("La clave 'body' no está en el JSON.")
+      
+        
     
         
     return jsonify({"status": "success"}), 200

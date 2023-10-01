@@ -27,7 +27,7 @@ def webhook_whatsapp():
     
     if 'body' in json.dumps(mensaje):
         
-        print(mensaje['entry'][0]['changes'][0]['value']['messages'][0]['text']['body'])
+        mensaj = mensaje['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
         
         payload = json.dumps({
@@ -37,7 +37,7 @@ def webhook_whatsapp():
           "type": "text",
           "text": {
             "preview_url": False,
-            "body": 'Somos los Pibes que Alentamos a River Plate'
+            "body": mensaj
           }
         })
         headers = {

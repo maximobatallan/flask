@@ -48,6 +48,7 @@ def webhook_whatsapp():
         #response = requests.request("POST", url, headers=headers, data=payload)
     else:
         print(mensaje['entry'][0]['changes'][0]['value']['statuses'][0]['status'])
+        print(mensaje)
       
         
     

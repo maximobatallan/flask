@@ -28,6 +28,10 @@ def webhook_whatsapp():
     if 'body' in json.dumps(mensaje):
         
         mensaj = mensaje['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
+        print(mensaje)
+        
+        print(mensaj)
+        
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
         
         payload = json.dumps({

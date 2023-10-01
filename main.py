@@ -27,7 +27,7 @@ def webhook_whatsapp():
     
     if 'body' in json.dumps(mensaje):
         
-        print (mensaje)
+        print(mi_diccionario['entry'][0]['changes'][0]['value']['messages'][0]['text']['body'])
         url = "https://graph.facebook.com/v17.0/137446296107512/messages"
         
         payload = json.dumps({
@@ -47,7 +47,7 @@ def webhook_whatsapp():
         response = requests.post(url, data=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers, data=payload)
     else:
-        print("La clave 'body' no está en el JSON.")
+        print(mi_diccionario['entry'][0]['changes'][0]['value']['statuses'][0]['status'])
       
         
     

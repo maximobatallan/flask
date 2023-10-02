@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 # OpenAi API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.environ.get("API-KEYOPENAI")
 
 # Access token for your WhatsApp business account app
 whatsapp_token = os.environ.get("WHATSAPP_TOKEN")

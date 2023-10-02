@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 
 def peticion(mensaje):
-
-    openai.api_key = ${{shared.API-KEYOPENAI}}
+    api_key = os.environ.get("API-KEYOPENAI")
+    openai.api_key = api_key
 
     carta_del_restaurante = {
         "Asado": 10.99,

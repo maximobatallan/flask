@@ -73,7 +73,7 @@ def recognize_audio(audio_bytes):
 def handle_audio_message(audio_id):
     audio_url = get_media_url(audio_id)
     audio_bytes = download_media_file(audio_url)
-  '''  audio_data = convert_audio_bytes(audio_bytes'''
+    #audio_data = convert_audio_bytes(audio_bytes
     audio_text = recognize_audio(audio_data)
     message = (
         "Please summarize the following message in its original language "

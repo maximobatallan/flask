@@ -91,7 +91,7 @@ def send_whatsapp_message(body, message):
         "Authorization": f"Bearer {whatsapp_token}",
         "Content-Type": "application/json",
     }
-    url = "https://graph.facebook.com/v15.0/" + phone_number_id + "/messages"
+    url = "https://graph.facebook.com/v17.0/" + phone_number_id + "/messages"
     data = {
         "messaging_product": "whatsapp",
         "to": from_number,

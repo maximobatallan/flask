@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import requests
 import json
-
+import chatopenai
 
 app = Flask(__name__)
 #CUANDO RECIBAMOS LAS PETICIONES EN ESTA RUTA

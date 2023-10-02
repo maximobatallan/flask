@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import requests
 import json
 import openai
-
+import os
 app = Flask(__name__)
 
 

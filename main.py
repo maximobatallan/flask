@@ -155,6 +155,7 @@ def handle_whatsapp_message(body):
 # handle incoming webhook messages
 def handle_message(request):
     # Parse Request body in json format
+    print('dentro de la formula')
     body = request.get_json()
     print(f"request body: {body}")
 
@@ -220,6 +221,7 @@ def webhook():
     if request.method == "GET":
         return verify(request)
     elif request.method == "POST":
+        print('ACA')
         return handle_message(request)
 
 

@@ -3,7 +3,7 @@ import json
 import requests
 
 
-def peticion():
+def peticion(mensaje):
 
     openai.api_key = "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"
 
@@ -51,7 +51,7 @@ def peticion():
 
     while True:
 
-        content = input("Decime tu pedido")
+        content = mensaje
         
         if content =="exit":
             break

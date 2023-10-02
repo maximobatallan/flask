@@ -46,7 +46,7 @@ def webhook_whatsapp():
         })
         headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer EAAVzJc6WKFUBO8Y1LyfTDbQZBF9ZBsqT8BN1qIFOPZCZBf5wxVMJRP2kZAaZBsrHWwf3hSeeTTZANwmVMR3EVitlgEXwSZCTysPx4IsrfcY9RbNZCocDW5N1Y9UOhtjwVsFKrnfCXJlJ4UvPoG6qWQf1qp27msMtGTdi94Kp9dPSvYbSJGy1iZCsBIfNz6Oh2YGl1tWFotwSO6y3ewBtCJi7Ldrq9PA8YZD'
+          'Authorization': 'Bearer EAAVzJc6WKFUBOZCF0DldZBipUtdMbjZAqxFOptTQW6vXekWEr4O8Q5P8jKJkumX4NLMnXdAfjJWQzDZBdyoG8uj3kxXEqmTI4O8CkPnLPZAZCZBbP1kVCMpm8dHOhcWA2WBewkNCh4K18bJ2aB2MlHVzsBX39Oe3CzmRgLyX38LoxgJ6cVAPNiUtW00Xl2VqB5gRNwQhLjWTlsipZAEzvkRCvjGcu3gZD'
         }
         response = requests.post(url, data=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers, data=payload)

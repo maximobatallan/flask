@@ -1,152 +1,235 @@
-from flask import Flask, jsonify, request
-import requests
-import json
-import openai
+import io
 import os
+
+import openai
+import pydub
+import requests
+import soundfile as sf
+import speech_recognition as sr
+from flask import Flask, jsonify, request
+
 app = Flask(__name__)
 
 
-def peticion(mensaje):
-    api_key = os.environ.get("API-KEYOPENAI")
-    openai.api_key = api_key
+# OpenAi API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    carta_del_restaurante = {
-        "Asado": 10.99,
-        "Vacio": 12.99,
-        "Cuadril": 9.99,
-        "Mollejas": 6.99,
+# Access token for your WhatsApp business account app
+whatsapp_token = os.environ.get("WHATSAPP_TOKEN")
+
+# Verify Token defined when configuring the webhook
+verify_token = os.environ.get("VERIFY_TOKEN")
+
+# Message log dictionary to enable conversation over multiple messages
+message_log_dict = {}
+
+
+# language for speech to text recoginition
+# TODO: detect this automatically based on the user's language
+LANGUGAGE = "en-US"
+
+
+# get the media url from the media id
+def get_media_url(media_id):
+    headers = {
+        "Authorization": f"Bearer {whatsapp_token}",
     }
+    url = f"https://graph.facebook.com/v16.0/{media_id}/"
+    response = requests.get(url, headers=headers)
+    print(f"media id response: {response.json()}")
+    return response.json()["url"]
 
 
-
-    prompt = """
-    Sos un asistente de la parrilla 'El Gran Retobao':
-
-    Aquí tienes la carta del restaurante con los precios:
-
-    {carta_del_restaurante}
-
-
-    tu objetivo es recolectar del cliente la siguiente informacion:
-
-    1) Dirección de entrega:
-
-    2) Lista de comidas y cantidades (por ejemplo, "2 hamburguesas, 1 pizza, 3 refrescos"):
+# download the media file from the media url
+def download_media_file(media_url):
+    headers = {
+        "Authorization": f"Bearer {whatsapp_token}",
+    }
+    response = requests.get(media_url, headers=headers)
+    print(f"first 10 digits of the media file: {response.content[:10]}")
+    return response.content
 
 
-    Al finalizar brindaras un Resumen del Pedido:
-    1) Dirección de Entrega: [Dirección proporcionada por el usuario]
-    2) Detalle:
-    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
-    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
-    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
-    [Continuar con la lista de comidas y cantidades]
+# convert ogg audio bytes to audio data which speechrecognition library can process
+def convert_audio_bytes(audio_bytes):
+    ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
+    ogg_audio = ogg_audio.set_sample_width(4)
+    wav_bytes = ogg_audio.export(format="wav").read()
+    audio_data, sample_rate = sf.read(io.BytesIO(wav_bytes), dtype="int32")
+    sample_width = audio_data.dtype.itemsize
+    print(f"audio sample_rate:{sample_rate}, sample_width:{sample_width}")
+    audio = sr.AudioData(audio_data, sample_rate, sample_width)
+    return audio
 
-    Total del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades]
 
-    ¡Muchas gracias su pedido estara listo dentro de los 45 minutos!
+# run speech recognition on the audio data
+def recognize_audio(audio_bytes):
+    recognizer = sr.Recognizer()
+    audio_text = recognizer.recognize_google(audio_bytes, language=LANGUGAGE)
+    return audio_text
 
-    """
 
-    context = {"role": "system",
-                "content": prompt}
-    messages = [context]
+# handle audio messages
+def handle_audio_message(audio_id):
+    audio_url = get_media_url(audio_id)
+    audio_bytes = download_media_file(audio_url)
+    audio_data = convert_audio_bytes(audio_bytes)
+    audio_text = recognize_audio(audio_data)
+    message = (
+        "Please summarize the following message in its original language "
+        f"as a list of bullet-points: {audio_text}"
+    )
+    return message
 
-    while True:
 
-        content = mensaje
-        
-        if content =="exit":
-            break
-        
-        messages.append({"role": "user", "content": content})
+# send the response as a WhatsApp message back to the user
+def send_whatsapp_message(body, message):
+    value = body["entry"][0]["changes"][0]["value"]
+    phone_number_id = value["metadata"]["phone_number_id"]
+    from_number = value["messages"][0]["from"]
+    headers = {
+        "Authorization": f"Bearer {whatsapp_token}",
+        "Content-Type": "application/json",
+    }
+    url = "https://graph.facebook.com/v15.0/" + phone_number_id + "/messages"
+    data = {
+        "messaging_product": "whatsapp",
+        "to": from_number,
+        "type": "text",
+        "text": {"body": message},
+    }
+    response = requests.post(url, json=data, headers=headers)
+    print(f"whatsapp message response: {response.json()}")
+    response.raise_for_status()
 
+
+# create a message log for each phone number and return the current message log
+def update_message_log(message, phone_number, role):
+    initial_log = {
+        "role": "system",
+        "content": "You are a helpful assistant named WhatsBot.",
+    }
+    if phone_number not in message_log_dict:
+        message_log_dict[phone_number] = [initial_log]
+    message_log = {"role": role, "content": message}
+    message_log_dict[phone_number].append(message_log)
+    return message_log_dict[phone_number]
+
+
+# remove last message from log if OpenAI request fails
+def remove_last_message_from_log(phone_number):
+    message_log_dict[phone_number].pop()
+
+
+# make request to OpenAI
+def make_openai_request(message, from_number):
+    try:
+        message_log = update_message_log(message, from_number, "user")
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", messages=messages)
-
-        response_content = response.choices[0].message.content
-
-        messages.append({"role": "assistant", "content": response_content})
-        
-        url = "https://graph.facebook.com/v17.0/137446296107512/messages"
-        
-        payload = json.dumps({
-          "messaging_product": "whatsapp",
-          "recipient_type": "individual",
-          "to": "54111523965421",
-          "type": "text",
-          "text": {
-            "preview_url": False,
-            "body": response_content
-          }
-        })
-        headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer EAAVzJc6WKFUBOZCF0DldZBipUtdMbjZAqxFOptTQW6vXekWEr4O8Q5P8jKJkumX4NLMnXdAfjJWQzDZBdyoG8uj3kxXEqmTI4O8CkPnLPZAZCZBbP1kVCMpm8dHOhcWA2WBewkNCh4K18bJ2aB2MlHVzsBX39Oe3CzmRgLyX38LoxgJ6cVAPNiUtW00Xl2VqB5gRNwQhLjWTlsipZAEzvkRCvjGcu3gZD'
-        }
-        response = requests.post(url, data=payload, headers=headers)
-        
-        
-    return response
+            model="gpt-3.5-turbo",
+            messages=message_log,
+            temperature=0.7,
+        )
+        response_message = response.choices[0].message.content
+        print(f"openai response: {response_message}")
+        update_message_log(response_message, from_number, "assistant")
+    except Exception as e:
+        print(f"openai error: {e}")
+        response_message = "Sorry, the OpenAI API is currently overloaded or offline. Please try again later."
+        remove_last_message_from_log(from_number)
+    return response_message
 
 
-@app.route("/webhook/", methods=["POST", "GET"])
-def webhook_whatsapp():
-    #SI HAY DATOS RECIBIDOS VIA GET
-    if request.method == "GET":
-        #SI EL TOKEN ES IGUAL AL QUE RECIBIMOS
-        if request.args.get('hub.verify_token') == "Retobao" and requests.args.get("hub.mode") == "suscribe":
-            #ESCRIBIMOS EN EL NAVEGADOR EL VALOR DEL RETO RECIBIDO DESDE FACEBOOK
-            return request.args.get('hub.challenge')
+# handle WhatsApp messages of different type
+def handle_whatsapp_message(body):
+    message = body["entry"][0]["changes"][0]["value"]["messages"][0]
+    if message["type"] == "text":
+        message_body = message["text"]["body"]
+    elif message["type"] == "audio":
+        audio_id = message["audio"]["id"]
+        message_body = handle_audio_message(audio_id)
+    response = make_openai_request(message_body, message["from"])
+    send_whatsapp_message(body, response)
+
+
+# handle incoming webhook messages
+def handle_message(request):
+    # Parse Request body in json format
+    body = request.get_json()
+    print(f"request body: {body}")
+
+    try:
+        # info on WhatsApp text message payload:
+        # https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
+        if body.get("object"):
+            if (
+                body.get("entry")
+                and body["entry"][0].get("changes")
+                and body["entry"][0]["changes"][0].get("value")
+                and body["entry"][0]["changes"][0]["value"].get("messages")
+                and body["entry"][0]["changes"][0]["value"]["messages"][0]
+            ):
+                handle_whatsapp_message(body)
+            return jsonify({"status": "ok"}), 200
         else:
-            #SI NO SON IGUALES RETORNAMOS UN MENSAJE DE ERROR
-          return "Error de autentificacion."
-    #RECIBIMOS TODOS LOS DATOS ENVIADO VIA JSON
+            # if the request is not a WhatsApp API event, return an error
+            return (
+                jsonify({"status": "error", "message": "Not a WhatsApp API event"}),
+                404,
+            )
+    # catch all other errors and return an internal server error
+    except Exception as e:
+        print(f"unknown error: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
-    data = request.data
-    datos_serializados_str = data.decode('utf-8')
-    
-    
-    mensaje = json.loads(datos_serializados_str)
-    
-    if 'body' in json.dumps(mensaje):
-
-
-        
-
-        
-        mensaj = mensaje['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
-        print(mensaje)
-        peticion(mensaj)
-        print(mensaj)
-        
-        '''url = "https://graph.facebook.com/v17.0/137446296107512/messages"
-        
-        payload = json.dumps({
-          "messaging_product": "whatsapp",
-          "recipient_type": "individual",
-          "to": "54111523965421",
-          "type": "text",
-          "text": {
-            "preview_url": False,
-            "body": mensaj
-          }
-        })
-        headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer EAAVzJc6WKFUBOZCF0DldZBipUtdMbjZAqxFOptTQW6vXekWEr4O8Q5P8jKJkumX4NLMnXdAfjJWQzDZBdyoG8uj3kxXEqmTI4O8CkPnLPZAZCZBbP1kVCMpm8dHOhcWA2WBewkNCh4K18bJ2aB2MlHVzsBX39Oe3CzmRgLyX38LoxgJ6cVAPNiUtW00Xl2VqB5gRNwQhLjWTlsipZAEzvkRCvjGcu3gZD'
-        }
-        response = requests.post(url, data=payload, headers=headers)
-        #response = requests.request("POST", url, headers=headers, data=payload)
+# Required webhook verifictaion for WhatsApp
+# info on verification request payload:
+# https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
+def verify(request):
+    # Parse params from the webhook verification request
+    mode = request.args.get("hub.mode")
+    token = request.args.get("hub.verify_token")
+    challenge = request.args.get("hub.challenge")
+    # Check if a token and mode were sent
+    if mode and token:
+        # Check the mode and token sent are correct
+        if mode == "subscribe" and token == verify_token:
+            # Respond with 200 OK and challenge token from the request
+            print("WEBHOOK_VERIFIED")
+            return challenge, 200
+        else:
+            # Responds with '403 Forbidden' if verify tokens do not match
+            print("VERIFICATION_FAILED")
+            return jsonify({"status": "error", "message": "Verification failed"}), 403
     else:
-        print(mensaje['entry'][0]['changes'][0]['value']['statuses'][0]['status'])
-        print(mensaje)
-      '''
-        
-    
-        
-    return jsonify({"status": "success"}), 200
+        # Responds with '400 Bad Request' if verify tokens do not match
+        print("MISSING_PARAMETER")
+        return jsonify({"status": "error", "message": "Missing parameters"}), 400
+
+
+# Sets homepage endpoint and welcome message
+@app.route("/", methods=["GET"])
+def home():
+    return "WhatsApp OpenAI Webhook is listening!"
+
+
+# Accepts POST and GET requests at /webhook endpoint
+@app.route("/webhook", methods=["POST", "GET"])
+def webhook():
+    if request.method == "GET":
+        return verify(request)
+    elif request.method == "POST":
+        return handle_message(request)
+
+
+# Route to reset message log
+@app.route("/reset", methods=["GET"])
+def reset():
+    global message_log_dict
+    message_log_dict = {}
+    return "Message log resetted!"
+
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, use_reloader=True)

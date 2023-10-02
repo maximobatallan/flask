@@ -5,7 +5,7 @@ import requests
 
 def peticion(mensaje):
 
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     carta_del_restaurante = {
         "Asado": 10.99,

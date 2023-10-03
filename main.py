@@ -87,12 +87,13 @@ def send_whatsapp_message(body, message):
     value = body["entry"][0]["changes"][0]["value"]
     phone_number_id = value["metadata"]["phone_number_id"]
     from_number = value["messages"][0]["from"]
+    print(from_numer)
     url = "https://graph.facebook.com/v17.0/" + phone_number_id + "/messages"
         
     payload = json.dumps({
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
-      "to": from_number,
+      "to": '54111523965421',
       "type": "text",
       "text": {
         "preview_url": False,

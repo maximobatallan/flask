@@ -105,7 +105,7 @@ def send_whatsapp_message(body, message):
     }
 
     response = requests.post(url, data=payload, headers=headers)
-    print(f"whatsapp message response: {response.json()}")
+   
     response.raise_for_status()
 
 
@@ -163,7 +163,7 @@ def handle_message(request):
     # Parse Request body in json format
     
     body = request.get_json()
-    print(f"request body: {body}")
+    
 
     try:
         # info on WhatsApp text message payload:
@@ -225,10 +225,10 @@ def home():
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
     if request.method == "GET":
-        print('get')
+        
         return verify(request)
     elif request.method == "POST":
-        print('ACA')
+        
         return handle_message(request)
 
 

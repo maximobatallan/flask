@@ -93,7 +93,7 @@ def send_whatsapp_message(body, message):
     payload = json.dumps({
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
-      "to": '5491123965421',
+      "to": '54111523965421',
       "type": "text",
       "text": {
         "preview_url": False,
@@ -106,7 +106,7 @@ def send_whatsapp_message(body, message):
     }
     
     response = requests.post(url, data=payload, headers=headers)
-    print('54111523965421',from_number)
+  
     response.raise_for_status()
 
 

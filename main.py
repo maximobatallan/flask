@@ -87,18 +87,24 @@ def send_whatsapp_message(body, message):
     value = body["entry"][0]["changes"][0]["value"]
     phone_number_id = value["metadata"]["phone_number_id"]
     from_number = value["messages"][0]["from"]
-    headers = {
-        "Authorization": f"Bearer {whatsapp_token}",
-        "Content-Type": "application/json",
-    }
     url = "https://graph.facebook.com/v17.0/" + phone_number_id + "/messages"
-    data = {
-        "messaging_product": "whatsapp",
-        "to": from_number,
-        "type": "text",
-        "text": {"body": message},
+        
+    payload = json.dumps({
+      "messaging_product": "whatsapp",
+      "recipient_type": "individual",
+      "to": "54111523965421",
+      "type": "text",
+      "text": {
+        "preview_url": False,
+        "body": response_content
+      }
+    })
+    headers = {
+      'Content-Type': 'application/json',
+      "Authorization": f"Bearer {whatsapp_token}",
     }
-    response = requests.post(url, data=data, headers=headers)
+
+    response = requests.post(url, data=payload, headers=headers)
     print(f"whatsapp message response: {response.json()}")
     response.raise_for_status()
 

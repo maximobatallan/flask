@@ -121,7 +121,7 @@ def update_message_log(message, phone_number, role):
 
 
 
-    carta_formateada = "Concepto          Precio\n----------------  ----------\n"
+    carta_formateada = "Concepto          Precio\n----------------            ----------\n"
     for concepto, precio in carta_del_restaurante.items():
         carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
 
@@ -135,7 +135,7 @@ def update_message_log(message, phone_number, role):
 
     tu objetivo es recolectar del cliente la siguiente informacion:
 
-    1) Dirección de entrega:
+    1) Dirección de entrega: no olvidar pedir direccion y guardar en: [Dirección proporcionada por el usuario]
 
     2) Lista de comidas y cantidades (por ejemplo, "2 hamburguesas, 1 pizza, 3 refrescos"):
 

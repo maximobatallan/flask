@@ -96,7 +96,7 @@ def send_whatsapp_message(body, message):
       "type": "text",
       "text": {
         "preview_url": False,
-        "body": response_content
+        "body": message
       }
     })
     headers = {

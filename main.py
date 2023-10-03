@@ -113,10 +113,10 @@ def send_whatsapp_message(body, message):
 # create a message log for each phone number and return the current message log
 def update_message_log(message, phone_number, role):
     carta_del_restaurante = [
-        "Asado": 10.99,
-        "Vacio": 12.99,
-        "Cuadril": 9.99,
-        "Mollejas": 6.99,
+        "Asado: 10.99",
+        "Vacio: 12.99",
+        "Cuadril: 9.99",
+        "Mollejas: 6.99",
     ]
 
 

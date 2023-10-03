@@ -117,6 +117,7 @@ def update_message_log(message, phone_number, role):
         "Vacio": 12.99,
         "Cuadril": 9.99,
         "Mollejas": 6.99,
+        "Bebidas": 15.99,
     }
 
 

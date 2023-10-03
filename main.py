@@ -87,7 +87,7 @@ def send_whatsapp_message(body, message):
     value = body["entry"][0]["changes"][0]["value"]
     phone_number_id = value["metadata"]["phone_number_id"]
     from_number = value["messages"][0]["from"]
-    print(from_number)
+    
     url = "https://graph.facebook.com/v17.0/" + phone_number_id + "/messages"
         
     payload = json.dumps({
@@ -195,6 +195,7 @@ def handle_whatsapp_message(body):
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
     if message["type"] == "text":
         message_body = message["text"]["body"]
+        print(message_body)
     elif message["type"] == "audio":
         audio_id = message["audio"]["id"]
         message_body = handle_audio_message(audio_id)

@@ -121,12 +121,16 @@ def update_message_log(message, phone_number, role):
 
 
 
+    carta_formateada = "Concepto          Precio\n----------------  ----------\n"
+    for concepto, precio in carta_del_restaurante.items():
+        carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
+
     prompt = f"""
     Sos un asistente de la parrilla 'El Gran Retobao':
-
+    
     Aquí tienes la carta del restaurante con los precios:
-
-    {carta_del_restaurante}
+    
+    {carta_formateada}
 
 
     tu objetivo es recolectar del cliente la siguiente informacion:

@@ -129,7 +129,7 @@ def update_message_log(message, phone_number, role):
     Sos un asistente de la parrilla 'El Gran Retobao':
     
     Aquí tienes la carta del restaurante con los precios:
-    
+    retringir pedido solo a al contenido de la siguiente carta
     {carta_formateada}
 
 

@@ -219,6 +219,7 @@ def home():
 @app.route("/webhook", methods=["POST", "GET"])
 def webhook():
     if request.method == "GET":
+        print('get')
         return verify(request)
     elif request.method == "POST":
         print('ACA')

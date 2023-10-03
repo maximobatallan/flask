@@ -128,11 +128,12 @@ def update_message_log(message, phone_number, role):
 
     prompt = f"""
     Sos un asistente de la parrilla 'El Gran Retobao':
+
+
     
     Aquí tienes la carta del restaurante con los precios:
-    retringir pedido solo a al contenido de la siguiente carta
     {carta_formateada}
-
+    si piden la carta dar la info de la carta, no se puede pedir nada que no este en la carta
 
     tu objetivo es recolectar del cliente la siguiente informacion:
 

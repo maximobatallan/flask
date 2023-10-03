@@ -111,9 +111,50 @@ def send_whatsapp_message(body, message):
 
 # create a message log for each phone number and return the current message log
 def update_message_log(message, phone_number, role):
-    initial_log = {
-        "role": "system",
-        "content": "You are a helpful assistant named WhatsBot.",
+    carta_del_restaurante = {
+        "Asado": 10.99,
+        "Vacio": 12.99,
+        "Cuadril": 9.99,
+        "Mollejas": 6.99,
+    }
+
+
+
+    prompt = """
+    Sos un asistente de la parrilla 'El Gran Retobao':
+
+    Aquí tienes la carta del restaurante con los precios:
+
+    {carta_del_restaurante}
+
+
+    tu objetivo es recolectar del cliente la siguiente informacion:
+
+    1) Dirección de entrega:
+
+    2) Lista de comidas y cantidades (por ejemplo, "2 hamburguesas, 1 pizza, 3 refrescos"):
+
+
+    Al finalizar brindaras un Resumen del Pedido:
+    1) Dirección de Entrega: [Dirección proporcionada por el usuario]
+    2) Detalle:
+    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
+    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
+    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
+    [Continuar con la lista de comidas y cantidades]
+
+    Total del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades]
+
+    ¡Muchas gracias su pedido estara listo dentro de los 45 minutos!
+
+    """
+
+    
+
+
+    
+    initial_log = {"role": "system",
+                "content": prompt},
     }
     if phone_number not in message_log_dict:
         message_log_dict[phone_number] = [initial_log]

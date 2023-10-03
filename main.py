@@ -104,9 +104,9 @@ def send_whatsapp_message(body, message):
       'Content-Type': 'application/json',
       "Authorization": f"Bearer {whatsapp_token}",
     }
-
+    
     response = requests.post(url, data=payload, headers=headers)
-   
+    print('54111523965421',from_number)
     response.raise_for_status()
 
 
@@ -152,12 +152,7 @@ def update_message_log(message, phone_number, role):
 
     ¡Muchas gracias su pedido estara listo dentro de los 45 minutos!
 
-    """
-
-    
-
-
-    
+    """  
     initial_log = {
         "role": "system",
         "content": prompt,

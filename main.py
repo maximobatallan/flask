@@ -93,7 +93,7 @@ def send_whatsapp_message(body, message):
     payload = json.dumps({
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
-      "to": '54111523965421',
+      "to": '5491123965421',
       "type": "text",
       "text": {
         "preview_url": False,
@@ -144,9 +144,9 @@ def update_message_log(message, phone_number, role):
     Al finalizar brindaras un Resumen del Pedido:
     1) Dirección de Entrega: [Dirección proporcionada por el usuario]
     2) Detalle:
-    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
-    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
-    - [Cantidad] x [Comida] = [Precio] x [Cantidad]
+    - [Cantidad] x [Comida] = [Calcular el total basado cantidad x precio de comida]
+    - [Cantidad] x [Comida] = [Calcular el total basado cantidad x precio de comida]
+    - [Cantidad] x [Comida] = [Calcular el total basado cantidad x precio de comida]
     [Continuar con la lista de comidas y cantidades]
 
     Total del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades]

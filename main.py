@@ -153,9 +153,11 @@ def update_message_log(message, phone_number, role):
 
 
     
-    initial_log = {"role": "system",
-                "content": prompt},
+    initial_log = {
+        "role": "system",
+        "content": prompt,
     }
+
     if phone_number not in message_log_dict:
         message_log_dict[phone_number] = [initial_log]
     message_log = {"role": role, "content": message}

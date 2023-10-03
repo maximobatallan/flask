@@ -121,7 +121,7 @@ def update_message_log(message, phone_number, role):
 
 
 
-    prompt = """
+    prompt = f"""
     Sos un asistente de la parrilla 'El Gran Retobao':
 
     Aquí tienes la carta del restaurante con los precios:

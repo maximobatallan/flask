@@ -130,7 +130,7 @@ def update_message_log(message, phone_number, role):
 
 
 
-    platodeldia = "Concepto          Precio\n----------------            ----------\n"
+    carta_formateada = "Concepto          Precio\n----------------            ----------\n"
     for concepto, precio in carta_del_restaurante.items():
         carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
 

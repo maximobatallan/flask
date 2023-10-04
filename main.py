@@ -1,3 +1,4 @@
+import sys
 import io
 import os
 import json
@@ -52,6 +53,7 @@ def download_media_file(media_url):
 
 # convert ogg audio bytes to audio data which speechrecognition library can process
 def convert_audio_bytes(audio_bytes):
+    print(type(audio_bytes)
     ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
     ogg_audio = ogg_audio.set_sample_width(4)
     wav_bytes = ogg_audio.export(format="wav").read()

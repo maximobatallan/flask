@@ -150,7 +150,7 @@ def update_message_log(message, phone_number, role):
     tu objetivo es recolectar del cliente la siguiente informacion:
     
     1) Dirección de entrega:  y guardar en: [Dirección proporcionada por el usuario]
-    Importante no tener la direccion que la brindo el usuario 
+    Importante recolectar la direccion que el usuario debe brindar 
     2) Lista de comidas y cantidades [cantidad x precio de comida = Precio Total
 
     Al finalizar brindaras un Resumen del Pedido:

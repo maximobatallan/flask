@@ -147,10 +147,12 @@ def update_message_log(message, phone_number, role):
     {carta_formateada}
     si piden la carta dar la info de la carta, no se puede pedir nada que no este en la carta
 
+    
+    
     tu objetivo es recolectar del cliente la siguiente informacion:
     
     1) Dirección de entrega:  y guardar en: [Dirección proporcionada por el usuario]
-    Importante recolectar la direccion que el usuario debe brindar 
+        Importante recolectar la direccion de entrega que el usuario en algun momento de la charla y no cerrar pedido hasta que la obtengas
     2) Lista de comidas y cantidades [cantidad x precio de comida = Precio Total
 
     Al finalizar brindaras un Resumen del Pedido:

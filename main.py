@@ -54,13 +54,30 @@ def download_media_file(media_url):
 # convert ogg audio bytes to audio data which speechrecognition library can process
 def convert_audio_bytes(audio_bytes):
     print(type(audio_bytes))
-    ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
+    
+    
+    recognizer = sr.Recognizer()
+
+    try:
+        # Decodificar los bytes de audio en un objeto de AudioData
+        audio_data = sr.AudioData(audio_bytes, sample_rate=16000, sample_width=2)  # Ajusta los valores según sea necesario
+
+        # Utilizar Google Web Speech API para convertir el audio en texto
+        text = recognizer.recognize_google(audio_data)
+        print(text)
+        return text
+
+
+
+    
+    
+    '''ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
     ogg_audio = ogg_audio.set_sample_width(4)
     wav_bytes = ogg_audio.export(format="wav").read()
     audio_data, sample_rate = sf.read(io.BytesIO(wav_bytes), dtype="int32")
     sample_width = audio_data.dtype.itemsize
     print(f"audio sample_rate:{sample_rate}, sample_width:{sample_width}")
-    audio = sr.AudioData(audio_data, sample_rate, sample_width)
+    audio = sr.AudioData(audio_data, sample_rate, sample_width)'''
     return audio
 
 

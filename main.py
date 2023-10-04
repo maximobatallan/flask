@@ -93,7 +93,7 @@ def send_whatsapp_message(body, message):
     payload = json.dumps({
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
-      "to": '54111523965421',
+      "to": '54151123965421',
       "type": "text",
       "text": {
         "preview_url": False,
@@ -120,7 +120,7 @@ def update_message_log(message, phone_number, role):
         "Bebidas": 15.99,
     }
 
-    Platodeldia = {
+    platodeldia = {
         "Filet con Pure": 2500,
         "Lentejas": 2500,
         "Cuadril": 3500,

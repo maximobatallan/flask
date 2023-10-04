@@ -51,15 +51,17 @@ def download_media_file(media_url):
 
 
 # convert ogg audio bytes to audio data which speechrecognition library can process
-'''def convert_audio_bytes(audio_bytes):
+def convert_audio_bytes(audio_bytes):
+    print('aca')
+    '''
     ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
     ogg_audio = ogg_audio.set_sample_width(4)
     wav_bytes = ogg_audio.export(format="wav").read()
     audio_data, sample_rate = sf.read(io.BytesIO(wav_bytes), dtype="int32")
     sample_width = audio_data.dtype.itemsize
     print(f"audio sample_rate:{sample_rate}, sample_width:{sample_width}")
-    audio = sr.AudioData(audio_data, sample_rate, sample_width)
-    return audio'''
+    audio = sr.AudioData(audio_data, sample_rate, sample_width)'''
+    return audio_bytes
 
 
 # run speech recognition on the audio data
@@ -73,7 +75,7 @@ def recognize_audio(audio_bytes):
 def handle_audio_message(audio_id):
     audio_url = get_media_url(audio_id)
     audio_bytes = download_media_file(audio_url)
-    #audio_data = convert_audio_bytes(audio_bytes
+    audio_data = convert_audio_bytes(audio_bytes)
     audio_text = recognize_audio(audio_data)
     message = (
         "Please summarize the following message in its original language "
@@ -211,10 +213,11 @@ def handle_whatsapp_message(body):
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
     if message["type"] == "text":
         message_body = message["text"]["body"]
-        print(message_body)
+        
     elif message["type"] == "audio":
         audio_id = message["audio"]["id"]
         message_body = handle_audio_message(audio_id)
+        print(message_body)
     response = make_openai_request(message_body, message["from"])
     send_whatsapp_message(body, response)
 

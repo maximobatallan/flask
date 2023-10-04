@@ -66,7 +66,7 @@ def convert_audio_bytes(audio_bytes):
         text = recognizer.recognize_google(audio_data)
         print(text)
         return text
-     except sr.UnknownValueError:
+    except sr.UnknownValueError:
         return "No se pudo reconocer el audio"
     except sr.RequestError as e:
         return f"Error en la solicitud al servicio de reconocimiento de voz: {str(e)}"

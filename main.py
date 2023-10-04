@@ -52,16 +52,14 @@ def download_media_file(media_url):
 
 # convert ogg audio bytes to audio data which speechrecognition library can process
 def convert_audio_bytes(audio_bytes):
-    
-    
     ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
     ogg_audio = ogg_audio.set_sample_width(4)
     wav_bytes = ogg_audio.export(format="wav").read()
     audio_data, sample_rate = sf.read(io.BytesIO(wav_bytes), dtype="int32")
     sample_width = audio_data.dtype.itemsize
     print(f"audio sample_rate:{sample_rate}, sample_width:{sample_width}")
-    audio = sr.AudioData(audio_data, sample_rate, sample_width)'''
-    return audio_bytes
+    audio = sr.AudioData(audio_data, sample_rate, sample_width)
+    return audio
 
 
 # run speech recognition on the audio data

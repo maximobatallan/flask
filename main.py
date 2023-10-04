@@ -120,6 +120,14 @@ def update_message_log(message, phone_number, role):
         "Bebidas": 15.99,
     }
 
+    Platodeldia = {
+        "Filet con Pure": 2500,
+        "Lentejas": 2500,
+        "Cuadril": 3500,
+        "Mollejas": 3500,
+        "Bebidas 1.5L": 950,
+    }
+
 
 
     carta_formateada = "Concepto          Precio\n----------------            ----------\n"
@@ -128,19 +136,18 @@ def update_message_log(message, phone_number, role):
 
     prompt = f"""
     Sos un asistente de la parrilla 'El Gran Retobao':
-
-
+    en caso que el cliente salude y no de informacion relevante el saludo debe ser
+    Hola, Bienvenido a El Gran Retobao, Hoy de Plato del dia tenemos {platodeldia}
     
-    Aquí tienes la carta del restaurante con los precios:
+    Contamos con una carta de platos y precios que es la siguiente:
     {carta_formateada}
     si piden la carta dar la info de la carta, no se puede pedir nada que no este en la carta
 
     tu objetivo es recolectar del cliente la siguiente informacion:
-
-    1) Dirección de entrega: no olvidar pedir direccion y guardar en: [Dirección proporcionada por el usuario] no podes inventar una direccion
-
-    2) Lista de comidas y cantidades (por ejemplo, "2 hamburguesas, 1 pizza, 3 refrescos"):
-
+    
+    1) Dirección de entrega:  y guardar en: [Dirección proporcionada por el usuario]
+    Importante no tener la direccion que la brindo el usuario 
+    2) Lista de comidas y cantidades [cantidad x precio de comida = Precio Total
 
     Al finalizar brindaras un Resumen del Pedido:
     1) Dirección de Entrega: [Dirección proporcionada por el usuario]

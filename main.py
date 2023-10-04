@@ -130,14 +130,18 @@ def update_message_log(message, phone_number, role):
 
 
 
-    carta_formateada = "Concepto          Precio\n----------------            ----------\n"
+    platodeldia = "Concepto          Precio\n----------------            ----------\n"
     for concepto, precio in carta_del_restaurante.items():
         carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
 
+        platodeldia_formateada = "Concepto          Precio\n----------------            ----------\n"
+    for concepto, precio in platodeldia.items():
+        platodeldia_formateada += f"{concepto:<18} ${precio:.2f}\n"
+        
     prompt = f"""
     Sos un asistente de la parrilla 'El Gran Retobao':
     en caso que el cliente salude y no de informacion relevante el saludo debe ser
-    Hola, Bienvenido a El Gran Retobao, Hoy de Plato del dia tenemos {platodeldia}
+    Hola, Bienvenido a El Gran Retobao, Hoy de Plato del dia tenemos {platodeldia_formateada}
     
     Contamos con una carta de platos y precios que es la siguiente:
     {carta_formateada}

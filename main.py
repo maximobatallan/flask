@@ -2,7 +2,7 @@ import io
 import os
 import json
 import openai
-
+import pydub
 import requests
 import soundfile as sf
 import speech_recognition as sr
@@ -52,8 +52,8 @@ def download_media_file(media_url):
 
 # convert ogg audio bytes to audio data which speechrecognition library can process
 def convert_audio_bytes(audio_bytes):
-    print('aca')
-    '''
+    
+    
     ogg_audio = pydub.AudioSegment.from_ogg(io.BytesIO(audio_bytes))
     ogg_audio = ogg_audio.set_sample_width(4)
     wav_bytes = ogg_audio.export(format="wav").read()

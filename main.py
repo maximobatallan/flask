@@ -216,13 +216,10 @@ def handle_whatsapp_message(body):
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
     if message["type"] == "text":
         message_body = message["text"]["body"]
-        
-    elif message["type"] == "audio":
-        '''audio_id = message["audio"]["id"]
-        message_body = handle_audio_message(audio_id)
-        print(message_body)
-    response = make_openai_request(message_body, message["from"])'''
-    response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
+        response = make_openai_request(message_body, message["from"])'''
+    else:
+        response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
+    
     send_whatsapp_message(body, response)
 
 

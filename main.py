@@ -78,8 +78,8 @@ def handle_audio_message(audio_id):
     
     audio_text = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
     message = (
-        "Please summarize the following message in its original language "
-        f"as a list of bullet-points: {audio_text}"
+       
+        audio_text
     )
     return message
 
@@ -113,6 +113,7 @@ def send_whatsapp_message(body, message):
 
 
 # create a message log for each phone number and return the current message log
+
 def update_message_log(message, phone_number, role):
     carta_del_restaurante = {
         "Asado": 10.99,
@@ -129,47 +130,48 @@ def update_message_log(message, phone_number, role):
         "Mollejas": 3500,
         "Bebidas 1.5L": 950,
     }
-
-
-
-    carta_formateada = "Concepto          Precio\n----------------            ----------\n"
-    for concepto, precio in carta_del_restaurante.items():
-        carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
-
-        platodeldia_formateada = "Concepto          Precio\n----------------            ----------\n"
-    for concepto, precio in platodeldia.items():
-        platodeldia_formateada += f"{concepto:<18} ${precio:.2f}\n"
+    if message == 'Disculpe, no puedo procesar audios, escribeme un mensaje':
         
-    prompt = f"""
-    Soy un asistente de la parrilla 'El Gran Retobao'. Si el cliente saluda pero no proporciona información relevante, responderé con:
+    else:
 
-👋 "Hola, Bienvenido a El Gran Retobao. Hoy, el plato del día es {platodeldia_formateada}. Además, tenemos una carta de platos y precios que puedes consultar en cualquier momento: {carta_formateada}. Por favor, ten en cuenta que solo podemos servir los platos que están en nuestra carta."
-
-Mi objetivo principal es recolectar la siguiente información importante de tu parte:
-
-1) Dirección de entrega: [Por favor, proporciona tu dirección de entrega 🏠]
-   Es esencial que nos des tu dirección de entrega para procesar tu pedido. No podremos continuar sin esta información.
-
-2) Lista de comidas y cantidades: [Por favor, indícame qué platos deseas y la cantidad de cada uno 🍔🍟]
-   Necesitamos saber qué platos y cuántos de cada uno deseas pedir. Esto nos ayudará a calcular el precio total de tu pedido.
-
-Una vez que hayas proporcionado esta información, te proporcionaré un resumen de tu pedido:
-
-Resumen del Pedido:
-1) Dirección de Entrega: [Dirección proporcionada por el usuario 🏠]
-
-2) Detalle del Pedido:
-   - [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]
-   - [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]
-   - [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]
-
-   [Continuar con la lista de comidas y cantidades 🍔🍟]
-
-Total del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades 💰]
-
-¡Gracias por tu pedido! Tu comida estará lista en un plazo máximo de 45 minutos. Esperamos que disfrutes de tu experiencia con El Gran Retobao. 😊🍽️
-
-
+        carta_formateada = "Concepto          Precio\n----------------            ----------\n"
+        for concepto, precio in carta_del_restaurante.items():
+            carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
+    
+            platodeldia_formateada = "Concepto          Precio\n----------------            ----------\n"
+        for concepto, precio in platodeldia.items():
+            platodeldia_formateada += f"{concepto:<18} ${precio:.2f}\n"
+            
+        prompt = f"""
+        Soy un asistente de la parrilla 'El Gran Retobao'. Si el cliente saluda pero no proporciona información relevante, responderé con:
+    
+    👋 "Hola, Bienvenido a El Gran Retobao. Hoy, el plato del día es {platodeldia_formateada}. Además, tenemos una carta de platos y precios que puedes consultar en cualquier momento: {carta_formateada}. Por favor, ten en cuenta que solo podemos servir los platos que están en nuestra carta."
+    
+    Mi objetivo principal es recolectar la siguiente información importante de tu parte:
+    
+    1) Dirección de entrega: [Por favor, proporciona tu dirección de entrega 🏠]
+       Es esencial que nos des tu dirección de entrega para procesar tu pedido. No podremos continuar sin esta información.
+    
+    2) Lista de comidas y cantidades: [Por favor, indícame qué platos deseas y la cantidad de cada uno 🍔🍟]
+       Necesitamos saber qué platos y cuántos de cada uno deseas pedir. Esto nos ayudará a calcular el precio total de tu pedido.
+    
+    Una vez que hayas proporcionado esta información, te proporcionaré un resumen de tu pedido:
+    
+    Resumen del Pedido:
+    1) Dirección de Entrega: [Dirección proporcionada por el usuario 🏠]
+    
+    2) Detalle del Pedido:
+       - [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]
+       - [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]
+       - [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]
+    
+       [Continuar con la lista de comidas y cantidades 🍔🍟]
+    
+    Total del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades 💰]
+    
+    ¡Gracias por tu pedido! Tu comida estará lista en un plazo máximo de 45 minutos. Esperamos que disfrutes de tu experiencia con El Gran Retobao. 😊🍽️
+    
+    
 
     """  
     initial_log = {

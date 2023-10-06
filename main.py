@@ -131,10 +131,10 @@ def update_message_log(message, phone_number, role):
         "Bebidas 1.5L": 950,
     }
     if message == 'Disculpe, no puedo procesar audios, escribeme un mensaje':
-        
-        else:
+        pass
+    else:
+        carta_formateada = "Concepto          Precio\n----------------            ----------\n"
 
-            carta_formateada = "Concepto          Precio\n----------------            ----------\n"
             for concepto, precio in carta_del_restaurante.items():
                 carta_formateada += f"{concepto:<18} ${precio:.2f}\n"
         

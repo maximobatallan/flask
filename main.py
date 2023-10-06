@@ -53,24 +53,11 @@ def download_media_file(media_url):
 
 # convert ogg audio bytes to audio data which speechrecognition library can process
 def convert_audio_bytes(audio_bytes):
-    print(type(audio_bytes))
+    nopermite = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
+    return nopermite
     
     
-    recognizer = sr.Recognizer()
-
-    try:
-        # Decodificar los bytes de audio en un objeto de AudioData
-        audio_data = sr.AudioData(audio_bytes, sample_rate=16000, sample_width=2)  # Ajusta los valores según sea necesario
-
-        # Utilizar Google Web Speech API para convertir el audio en texto
-        text = recognizer.recognize_google(audio_data)
-        print(text)
-        return text
-    except sr.UnknownValueError:
-        return "No se pudo reconocer el audio"
-    except sr.RequestError as e:
-        return f"Error en la solicitud al servicio de reconocimiento de voz: {str(e)}"
-
+    
 
 
 

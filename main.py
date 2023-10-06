@@ -216,7 +216,7 @@ def handle_whatsapp_message(body):
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
     if message["type"] == "text":
         message_body = message["text"]["body"]
-        response = make_openai_request(message_body, message["from"])'''
+        response = make_openai_request(message_body, message["from"])
     else:
         response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
     

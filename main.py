@@ -32,13 +32,15 @@ LANGUGAGE = "en-US"
 
 # get the media url from the media id
 def get_media_url(media_id):
-    headers = {
+    '''headers = {
         "Authorization": f"Bearer {whatsapp_token}",
     }
     url = f"https://graph.facebook.com/v16.0/{media_id}/"
     response = requests.get(url, headers=headers)
     print(f"media id response: {response.json()}")
-    return response.json()["url"]
+    return response.json()["url"]'''
+    nopermite = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
+    return nopermite
 
 
 # download the media file from the media url
@@ -79,10 +81,7 @@ def handle_audio_message(audio_id):
     audio_data = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
     
     audio_text = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
-    message = (
-       
-        audio_text
-    )
+    message = audio_text
     return message
 
 
@@ -219,10 +218,11 @@ def handle_whatsapp_message(body):
         message_body = message["text"]["body"]
         
     elif message["type"] == "audio":
-        audio_id = message["audio"]["id"]
+        '''audio_id = message["audio"]["id"]
         message_body = handle_audio_message(audio_id)
         print(message_body)
-    response = make_openai_request(message_body, message["from"])
+    response = make_openai_request(message_body, message["from"])'''
+    response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
     send_whatsapp_message(body, response)
 
 

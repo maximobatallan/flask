@@ -196,7 +196,7 @@ def remove_last_message_from_log(phone_number):
 def make_openai_request(message, from_number):
     try:
         message_log = update_message_log(message, from_number, "user")
-        response = openai.ChatCompletion.create(
+        response = openai.Completion.create(
             model="gpt-3.5-turbo-instruct",
             messages=message_log,
             temperature=0.7,

@@ -197,7 +197,7 @@ def make_openai_request(message, from_number):
     try:
         message_log = update_message_log(message, from_number, "user")
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo-instruct",
             messages=message_log,
             temperature=0.7,
         )

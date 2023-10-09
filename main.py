@@ -197,10 +197,11 @@ def make_openai_request(message, from_number):
     try:
         message_log = update_message_log(message, from_number, "user")
         response = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            messages=message_log,
-            temperature=0.7,
-        )
+  model="gpt-3.5-turbo-instruct",
+  prompt=prompt,
+  max_tokens=25,
+  temperature=0
+)
         response_message = response.choices[0].message.content
         print(f"openai response: {response_message}")
         update_message_log(response_message, from_number, "assistant")

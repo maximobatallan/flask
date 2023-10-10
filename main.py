@@ -353,7 +353,39 @@ def reset():
 @app.route("/politicasdeprivacidad")
 def poldepriv():
     
-    return "Message log resetted!"
+    return """
+
+Política de Privacidad del Asistente al Cliente del Restaurante
+
+Política de Privacidad
+
+En nuestro servicio de asistente al cliente para el restaurante, respetamos y protegemos su privacidad. Esta política de privacidad explica cómo recopilamos, usamos y protegemos su información personal.
+
+Información que recopilamos
+
+Recopilamos información personal, como su nombre, dirección de correo electrónico y preferencias de comida, cuando utiliza nuestro servicio.
+
+Uso de la información
+
+Utilizamos la información recopilada para proporcionarle recomendaciones de comida personalizadas, gestionar sus pedidos y mejorar la experiencia de nuestro servicio.
+
+Seguridad
+
+Tomamos medidas para proteger su información personal y garantizar su seguridad mientras utiliza nuestro servicio.
+
+Cookies
+
+Utilizamos cookies para mejorar la experiencia del usuario en nuestro sitio web y personalizar las recomendaciones de comida. Puede configurar su navegador para rechazar las cookies si lo desea.
+
+Enlaces a otros sitios
+
+Nuestro servicio puede contener enlaces a otros sitios web. No somos responsables de las prácticas de privacidad de esos sitios.
+
+Contacto
+
+Si tiene preguntas sobre nuestra política de privacidad, puede contactarnos en [su dirección de correo electrónico].
+
+Esta política de privacidad se actualizó por última vez el [fecha de actualización]."""
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)

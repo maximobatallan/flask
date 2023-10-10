@@ -214,7 +214,7 @@ def update_message_log(message, phone_number, role):
         "content": system_prompt,
     }
 
-    user_prompt = f"""Dar respuestas concisas y no brindar ejemplos, no imprimir la informacion que se encuentra entre [], Solo debes obtener el pedido del usuario de la proporcionada, no puede inventar platos nuevos, en caso que no exista el plato no se agrega al pedido"""
+    user_prompt = f"""Dar respuestas concisas y no brindar ejemplos, no imprimir la informacion que se encuentra entre [], Solo debes obtener el pedido del usuario de la proporcionada, no puede inventar platos que no se encuentre en la carta"""
     
     user_log = {
         "role": "user",

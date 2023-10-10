@@ -178,18 +178,13 @@ def update_message_log(message, phone_number, role):
     system_prompt = """
                         Sos un asistente de la parrilla 'El Gran Retobao'.
                         
-                        carta_del_restaurante = {
-                            "Asado": 10.99,
-                            "Vacio": 12.99,
-                            "Cuadril": 9.99,
-                            "Mollejas": 20.99
-                        }
+                        los platos que se pueden pedir son solo los que se encuentran en {carta_formateada}
                         El objetivo es recolectar del cliente la siguiente información:
                         1) Dirección de entrega
                         2) Lista de comidas y cantidades
                         
                         Al finalizar, brindarás un Resumen del Pedido:
-                        
+                        3 
                         Importante:
                         El pedido solo se completará si el usuario proporciona la dirección de entrega y al menos un elemento de la carta se incluye en el detalle.
                         
@@ -206,6 +201,8 @@ def update_message_log(message, phone_number, role):
                         Total del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades]
                         
                         ¡Muchas gracias! Su pedido estará listo dentro de los 45 minutos.
+                        importante: ser estricto en que si el usuario solicita algo que no se encuentra en el menu = {carta_del_restaurante} no se puede incluir en el detalle, 
+                        solicitar que cambie el plato
                         """
 
    
@@ -214,7 +211,7 @@ def update_message_log(message, phone_number, role):
         "content": system_prompt,
     }
 
-    user_prompt = f"""Dar respuestas concisas y no brindar ejemplos, no imprimir la informacion que se encuentra entre [], Solo debes obtener el pedido del usuario de la proporcionada, no puede inventar platos que no se encuentre en la carta"""
+    user_prompt = f"""Dar respuestas concisas y no brindar ejemplos, no imprimir la informacion que se encuentra entre []"""
     
     user_log = {
         "role": "user",

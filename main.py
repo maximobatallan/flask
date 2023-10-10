@@ -213,8 +213,13 @@ def update_message_log(message, phone_number, role):
         "role": "system",
         "content": system_prompt,
     }
+
+    user_prompt = f"""Dar respuestas concisas y no brindar ejemplos, no imprimir la informacion que se encuentra entre []"""
     
- 
+    user_log = {
+        "role": "user",
+        "content": user_prompt,
+    }
 
 
 
@@ -222,7 +227,7 @@ def update_message_log(message, phone_number, role):
 
     if phone_number not in message_log_dict:
         message_log_dict[phone_number] = [initial_log]
-
+        message_log_dict[phone_number].append(user_log)
     message_log = {"role": role, "content": message}
     message_log_dict[phone_number].append(message_log)
     return message_log_dict[phone_number]

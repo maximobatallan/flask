@@ -183,7 +183,7 @@ def update_message_log(message, phone_number, role):
     },
     {
         "role": "assistant",
-        "content": f"La carta de El Gran Retobao es la siguiente:\n\n{carta}"
+        "content": f"La carta de El Gran Retobao es la siguiente:\n\n{carta_formateada}"
     }
 ]
 

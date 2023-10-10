@@ -143,7 +143,7 @@ def update_message_log(message, phone_number, role):
         for concepto, precio in platodeldia.items():
             platodeldia_formateada += f"{concepto:<18} ${precio:.2f}\n"
             
-        prompt = f"""
+        '''prompt = f"""
         Soy un asistente de la parrilla 'El Gran Retobao'. Si el cliente saluda pero no proporciona información relevante, responderé con:
     
     👋 "Hola, Bienvenido a El Gran Retobao. Hoy, el plato del día es {platodeldia_formateada}. Además, tenemos una carta de platos y precios que puedes consultar en cualquier momento: {carta_formateada}. Por favor, ten en cuenta que solo podemos servir los platos que están en nuestra carta."
@@ -174,11 +174,19 @@ def update_message_log(message, phone_number, role):
     
     
 
-    """  
-    initial_log = {
-        "role": "system",
-        "content": prompt,
-    }
+    """  '''
+    prompt = "Instrucciones iniciales para el Asistente Virtual de El Gran Retobao:\n\n- El asistente está configurado exclusivamente para ayudarte a realizar pedidos de comida en El Gran Retobao.\n\n- El objetivo principal es recopilar información para el pedido, que incluye la dirección de entrega y la lista de platos con cantidades.\n\n- Si el cliente solicita la carta de platodeldia, se le mostrará. De lo contrario, no se mostrará de forma predeterminada.\n\n- El asistente no proporcionará respuestas a preguntas o temas no relacionados con el proceso de pedido de comida.\n\n- El asistente no confirmará el pedido hasta que se haya proporcionado la dirección de entrega.\n\nPor favor, comienza proporcionando los detalles necesarios para tu pedido. ¡Estamos aquí para ayudarte!"
+    asistente = "Resumen del Pedido:\n1) Dirección de Entrega: [Dirección proporcionada por el usuario 🏠]\n\n2) Detalle del Pedido:\n- [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]\n- [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]\n- [Cantidad] x [Comida] = [Calcular el total basado en la cantidad y el precio de la comida 💰]\n\n[Continuar con la lista de comidas y cantidades 🍔🍟]\n\nTotal del Pedido: [Calcular el total basado en los precios de las comidas y las cantidades 💰]\n\n¡Gracias por tu pedido! Tu comida estará lista en un plazo máximo de 45 minutos. Esperamos que disfrutes de tu experiencia con El Gran Retobao. 😊🍽️"
+    initial_log = [
+  {
+    "role": "system",
+    "content": prompt
+  },
+  {
+    "role": "assistant",
+    "content": asistente
+  }
+]
 
     if phone_number not in message_log_dict:
         message_log_dict[phone_number] = [initial_log]
@@ -194,16 +202,15 @@ def remove_last_message_from_log(phone_number):
 
 # make request to OpenAI
 def make_openai_request(message, from_number):
-    print(type(message))
-    print(message)
+  
     try:
         message_log = update_message_log(message, from_number, "user")
         
-        response = openai.Completion.create(
-          model="gpt-3.5-turbo-instruct",
-          prompt=message_log,
-          temperature=0
-)
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=message_log,
+            temperature=0.7,
+        )
         response_message = response.choices[0].message.content
         print(f"openai response: {response_message}")
         update_message_log(response_message, from_number, "assistant")

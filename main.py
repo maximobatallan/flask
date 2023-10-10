@@ -351,8 +351,9 @@ def reset():
 
 
 @app.route("/politicasdeprivacidad")
-def politicasdeprivacidad():
-    return render_template('politicasdeprivacidad.html')
+def poldepriv():
+    
+    return "Message log resetted!"
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)

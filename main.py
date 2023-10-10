@@ -195,12 +195,13 @@ def remove_last_message_from_log(phone_number):
 # make request to OpenAI
 def make_openai_request(message, from_number):
     print(type(message))
+    print(message)
     try:
         message_log = update_message_log(message, from_number, "user")
-        print(type(message_log))
+        
         response = openai.Completion.create(
           model="gpt-3.5-turbo-instruct",
-          prompt=message,
+          prompt=message_log,
           temperature=0
 )
         response_message = response.choices[0].message.content

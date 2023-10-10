@@ -244,7 +244,7 @@ def make_openai_request(message, from_number):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=message_log,
-            temperature=0.7,
+            temperature=0,
         )
         response_message = response.choices[0].message.content
         print(f"openai response: {response_message}")
@@ -261,6 +261,7 @@ def handle_whatsapp_message(body):
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
     if message["type"] == "text":
         message_body = message["text"]["body"]
+        print(message_body)
         response = make_openai_request(message_body, message["from"])
     else:
         response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
@@ -338,6 +339,7 @@ def webhook():
         
         return verify(request)
     elif request.method == "POST":
+
         
         return handle_message(request)
 

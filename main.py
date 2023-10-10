@@ -175,7 +175,7 @@ def update_message_log(message, phone_number, role):
     
 
     """  '''
-    system_prompt = """
+    system_prompt = f"""
                         Sos un asistente de la parrilla 'El Gran Retobao'.
                         
                         los platos que se pueden pedir son solo los que se encuentran en {carta_formateada}

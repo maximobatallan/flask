@@ -93,7 +93,7 @@ def send_whatsapp_message(body, message):
     print(from_number)
     url = "https://graph.facebook.com/v17.0/" + phone_number_id + "/messages"
         
-    '''payload = json.dumps({
+    payload = json.dumps({
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
       "to": from_number,
@@ -102,44 +102,7 @@ def send_whatsapp_message(body, message):
         "preview_url": False,
         "body": message
       }
-    })'''
-    payload = json.dumps({
-  "messaging_product": "whatsapp",
-  "recipient_type": "individual",
-  "to": from_number,
-  "type": "template",
-  "template": {
-    "name": "TEMPLATE_NAME",
-    "language": {
-      "code": "LANGUAGE_AND_LOCALE_CODE"
-    },
-    "components": [
-      {
-        "type": "body",
-        "parameters": [
-          {
-            "type": "text",
-            "text": "text-string"
-          },
-          {
-            "type": "currency",
-            "currency": {
-              "fallback_value": "VALUE",
-              "code": "USD",
-              "amount_1000": 100
-            }
-          },
-          {
-            "type": "date_time",
-            "date_time": {
-              "fallback_value": "DATE"
-            }
-          }
-        ]
-      }
-    ]
-  }
-})
+    })
     
     headers = {
       'Content-Type': 'application/json',

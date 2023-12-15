@@ -523,7 +523,6 @@ def handle_whatsapp_message(body):
     if message["type"] == "text":
         message_body = f'solo responder segun el texto proporcionado, {message["text"]["body"]}'
         print(message_body)
-)
         response = make_openai_request(message_body, message["from"])
     else:
         response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'

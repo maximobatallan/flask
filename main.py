@@ -262,16 +262,39 @@ Comprender y gestionar la presencia en línea, incluida la privacidad, la seguri
 Unidad 3:
 
 
-Actividades de reflexion y revision
-1-	l0ue relacion ,existe entre la Brecha digital y la concentraci6n de la informaci6n?
-2-	l,Que entornos de aprendizaje se plantean para los ent.OIrnos virtuales?
-3-	Acorde a lo leido lPor que y para que la alfab,etizaci6n digital debe incluirse en el proceso de alfabetizaci6n general yen las escuelas?
-4-	l,Por que es necesaIrio generar nuevos entornos de enseiianza y aprendizaje? A su criterio lS61o s,e accede a ellos con la alfabetizaci6n digital? 5- lndique las diferentes brechas digitales de acuerdo a las pe-rspectivas analizadas. Destaque tres caracterfsticas distintivas en cada una de ellas.
-6-	Acorde a su criteri,o lC6mo define el termino "brecha digital"? Destaque algunas de las particularidades negativas implicitas en este concepto.
-7-	l,Cual es la primera brecha a salvar dentro de las variantes de la br,echa digital? Considere que es un punto coincidente en todos los autores mencionados.
-8-	l0ue consideraciones se deben tener al diferenciar la inclusion y la difusi6n? lC1ree que la difusi6n aumenta la inclusion en la sociedad de la lnformaci6n?
-9-	La brecha digital de genera sigue siendo muy amplia en el mundo, muchas naciones realizan grandes esfuerzos para reducirla, pero no siempre los logros son los esperados. lEvidencia usted en su lug,ar de trabajo, comunidad o ciudad la existencia y/o persistencia de la brecha digital relacionada al genero? Si la respuesta es afirmativa lA que motivos cree que se debe?
-10-	Explique la relaci6n existente entre la Sociedad de la lnformaci6n, la brecha digital y el acceso a las NTIC.
+¿Qué relación existe entre la Brecha digital y la concentración de la información?
+
+Respuesta: La Brecha Digital está vinculada a la concentración de información, ya que en un escenario de acceso desigual a la tecnología, aquellos que tienen limitado acceso también enfrentan restricciones en la obtención de información. La concentración de la tecnología en ciertos sectores puede amplificar las desigualdades en el acceso a la información.
+¿Qué entornos de aprendizaje se plantean para los entornos virtuales?
+
+Respuesta: Los entornos de aprendizaje virtual pueden incluir plataformas en línea, cursos electrónicos y recursos educativos digitales. Estos entornos permiten el aprendizaje sincrónico o asincrónico, apoyándose en una estructura de red como Internet. La alfabetización digital se considera crucial para participar en estos entornos y aprovechar las oportunidades educativas en la sociedad digital.
+¿Por qué y para qué la alfabetización digital debe incluirse en el proceso de alfabetización general y en las escuelas?
+
+Respuesta: La alfabetización digital se integra en la alfabetización general para capacitar a las personas en el uso efectivo de las nuevas tecnologías. Se busca reducir la Brecha Digital, asegurando que todos tengan acceso y habilidades para participar en la sociedad de la información. La inclusión en la educación formal garantiza que las nuevas generaciones estén preparadas para el mundo digital.
+¿Por qué es necesario generar nuevos entornos de enseñanza y aprendizaje? ¿Solo se accede a ellos con la alfabetización digital?
+
+Respuesta: La generación de nuevos entornos de enseñanza y aprendizaje responde a la evolución de la sociedad de la información. No solo se accede a ellos con alfabetización digital, pero esta es esencial para aprovechar plenamente las oportunidades que ofrecen. Los avances tecnológicos permiten la creación de entornos más flexibles e interactivos, y la alfabetización digital facilita la participación activa en estos contextos.
+Indique las diferentes brechas digitales de acuerdo a las perspectivas analizadas. Destaque tres características distintivas en cada una de ellas.
+
+Respuesta: Las perspectivas mencionadas incluyen la brecha global (entre naciones), brecha social (entre individuos), y brecha democrática (en el uso político de la tecnología). Tres características distintivas son:
+Brecha global: Desigualdades en el acceso a la tecnología entre países desarrollados y en desarrollo.
+Brecha social: Diferencias en la capacidad de individuos ricos y pobres para acceder y utilizar la tecnología.
+Brecha democrática: División en la participación política a través de la tecnología, afectando la representatividad.
+¿Cómo define el término "brecha digital"? Destaque algunas de las particularidades negativas implícitas en este concepto.
+
+Respuesta: La "brecha digital" se refiere a las disparidades en el acceso y uso de la tecnología. Particularidades negativas incluyen exclusión social, limitación en oportunidades educativas y laborales, y la posibilidad de profundizar desigualdades preexistentes en la sociedad.
+¿Cuál es la primera brecha a salvar dentro de las variantes de la brecha digital? Considere que es un punto coincidente en todos los autores mencionados.
+
+Respuesta: La brecha global, relacionada con las disparidades entre naciones en desarrollo y desarrolladas, es un punto coincidente. Todos los autores reconocen la necesidad de abordar esta brecha como una prioridad para lograr un desarrollo más equitativo.
+¿Qué consideraciones se deben tener al diferenciar la inclusión y la difusión? ¿Cree que la difusión aumenta la inclusión en la sociedad de la información?
+
+Respuesta: La inclusión va más allá de la difusión; no es suficiente con poner tecnología, se requieren procesos educativos. La difusión sola no garantiza la inclusión. La verdadera inclusión se logra a través de aprendizaje social y procesos de participación activa. La difusión puede aumentar la visibilidad, pero la inclusión requiere un enfoque más integral.
+¿Evidencia usted en su lugar de trabajo, comunidad o ciudad la existencia y/o persistencia de la brecha digital relacionada al género? Si la respuesta es afirmativa ¿A qué motivos cree que se debe?
+
+Respuesta: Esta pregunta no puede ser respondida directamente ya que requiere información específica del entorno del usuario.
+Explique la relación existente entre la Sociedad de la Información, la brecha digital y el acceso a las NTIC.
+
+Respuesta: La Sociedad de la Información representa una etapa en la que el intercambio de información es fundamental. La Brecha Digital, relacionada con desigualdades en el acceso a las NTIC, es un desafío crítico en esta sociedad. El acceso desigual a las tecnologías limita la participación y el aprovechamiento de las oportunidades en la era digital. Superar la Brecha Digital es esencial para lograr una sociedad de la información más equitativa y desarrollada.
  
 Epígrafes explicativos para imágenes sobre el mundo conectado por las tecnologías y sus conexiones:
 

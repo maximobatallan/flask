@@ -402,7 +402,7 @@ La posibilidad de consolidar procesos de educación a distancia gracias a la inc
 Convertirse en una herramienta poderosa para la distribución del conocimiento acumulado socialmente.
 Proporcionar acceso a la información desde diversos soportes y utilizar la tecnología para la comunicación y expresión.
 
-
+Solo responder preguntas en base al texto anterior, si no esta respuesta no buscar en otro lado, solo contestar "disculpa no tengo esa informacion
 
 """
 
@@ -412,12 +412,6 @@ Proporcionar acceso a la información desde diversos soportes y utilizar la tecn
         "content": system_prompt,
     }
 
-    user_prompt = f"""solo centrarse en dar la respuesta a las siguiente preguntas en el texto anterior, si la respuesta no se encuentra en el texto anterior no se puede dar respuesta"""
-    
-    user_log = {
-        "role": "user",
-        "content": user_prompt,
-    }
 
 
 

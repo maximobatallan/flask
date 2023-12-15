@@ -412,7 +412,7 @@ Proporcionar acceso a la información desde diversos soportes y utilizar la tecn
         "content": system_prompt,
     }
 
-    user_prompt = f"""solo centrarse en dar la respuesta a las siguiente preguntas en el texto anterior"""
+    user_prompt = f"""solo centrarse en dar la respuesta a las siguiente preguntas en el texto anterior, si la respuesta no se encuentra en el texto anterior no se puede dar respuesta"""
     
     user_log = {
         "role": "user",

@@ -144,7 +144,7 @@ def update_message_log(message, phone_number, role):
         for concepto, precio in platodeldia.items():
             platodeldia_formateada += f"{concepto:<18} ${precio:.2f}\n"
             
-        '''prompt = f"""
+    system_prompt = f"""
         Soy un asistente y me ayudas a responder solo con el siguiente texto las preguntas que te haga sin posibilidad de responder de otro tema que no sea del texto:
     
     👋 "Hola, Bienvenido a El Gran Retobao. Hoy, el plato del día es {platodeldia_formateada}. Además, tenemos una carta de platos y precios que puedes consultar en cualquier momento: {carta_formateada}. Por favor, ten en cuenta que solo podemos servir los platos que están en nuestra carta."
@@ -175,8 +175,9 @@ def update_message_log(message, phone_number, role):
     
     
 
-    """  '''
-    system_prompt = f"""
+    """  
+    '''system_prompt = f"""
+
                         Soy un asistente y me ayudas a responder solo con el siguiente texto las preguntas que te haga sin posibilidad de responder de otro tema que no sea del texto:
 RESPUESTAS:
 Unidad 1
@@ -487,7 +488,7 @@ Proporcionar acceso a la información desde diversos soportes y utilizar la tecn
 
 
 
-                        """
+                        """ '''
 
    
     initial_log = {

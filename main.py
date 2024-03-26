@@ -38,12 +38,16 @@ def get_media_url(media_id):
     url = f"https://graph.facebook.com/v16.0/{media_id}/"
     response = requests.get(url, headers=headers)
     print(f"media id response: {response.json()}")
+
+    
+    
     return response.json()["url"]
  
 
 
 # download the media file from the media url
 def download_media_file(media_url):
+    print(media_url)
     headers = {
         "Authorization": f"Bearer {whatsapp_token}",
     }
@@ -548,7 +552,7 @@ def handle_whatsapp_message(body):
         print(message_body)
         response = make_openai_request(message_body, message["from"])
     else:
-        response = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
+        response = download_media_file(body)
     
     send_whatsapp_message(body, response)
 

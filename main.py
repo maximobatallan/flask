@@ -32,15 +32,14 @@ LANGUGAGE = "en-US"
 
 # get the media url from the media id
 def get_media_url(media_id):
-    '''headers = {
+    headers = {
         "Authorization": f"Bearer {whatsapp_token}",
     }
     url = f"https://graph.facebook.com/v16.0/{media_id}/"
     response = requests.get(url, headers=headers)
     print(f"media id response: {response.json()}")
-    return response.json()["url"]'''
-    nopermite = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
-    return nopermite
+    return response.json()["url"]
+ 
 
 
 # download the media file from the media url

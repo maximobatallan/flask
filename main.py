@@ -45,14 +45,14 @@ def get_media_url(media_id):
 
 # download the media file from the media url
 def download_media_file(media_url):
-    '''headers = {
+    headers = {
         "Authorization": f"Bearer {whatsapp_token}",
     }
     response = requests.get(media_url, headers=headers)
     print(f"first 10 digits of the media file: {response.content[:10]}")
-    return response.content'''
-    nopermite = 'Disculpe, no puedo procesar audios, escribeme un mensaje'
-    return nopermite
+    return response.content
+    
+
 
 
 # convert ogg audio bytes to audio data which speechrecognition library can process

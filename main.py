@@ -591,15 +591,29 @@ def make_openai_request(message, from_number):
 
 # handle WhatsApp messages of different type
 def handle_whatsapp_message(body):
+    # Extraer el mensaje del cuerpo
     message = body["entry"][0]["changes"][0]["value"]["messages"][0]
+    
+    # Verificar el tipo de mensaje
     if message["type"] == "text":
-        message_body = f'solo responder segun el texto proporcionado, {message["text"]["body"]}'
-        print(message_body)
+        message_body = f'solo responder según el texto proporcionado, {message["text"]["body"]}'
+        print("Mensaje de texto:", message_body)
         response = make_openai_request(message_body, message["from"])
+    
+    elif message["type"] == "button":
+        # Manejar mensajes de tipo button
+        button_payload = message["button"]["payload"]
+        button_text = message["button"]["text"]
+        print(f"Botón presionado: {button_text} (Payload: {button_payload})")
+        response = f'Recibí tu interacción con el botón: {button_text}'
+
     else:
+        # Otras acciones para otros tipos de mensajes, por ejemplo, media
         response = download_media_file(body)
     
+    # Enviar la respuesta adecuada según el tipo de mensaje recibido
     send_whatsapp_message(body, response)
+
 
 
 # handle incoming webhook messages

@@ -91,12 +91,10 @@ def handle_audio_message(audio_id):
     
 def send_whatsapp_message(body, message):
     whatsapp_token = os.environ.get("WHATSAPP_TOKEN")
-
    
     message_type = body['entry'][0]['changes'][0]['value']['messages'][0]['type']
 
     print(body, message_type)
-    
     
     if message_type == 'text':
         
@@ -104,42 +102,36 @@ def send_whatsapp_message(body, message):
         phone_number_id = value["metadata"]["phone_number_id"]
         from_number = value["messages"][0]["from"]
         print(from_number)
-        url = "https://graph.facebook.com/v17.0/" + phone_number_id + "/messages"
+        
+        # Asegúrate de que phone_number_id sea una cadena
+        if not isinstance(phone_number_id, str):
+            raise ValueError("phone_number_id debe ser una cadena.")
+        
+        # Construye correctamente la URL con el f-string
+        url = f"https://graph.facebook.com/v17.0/{phone_number_id}/messages"
             
         payload = json.dumps({
             "messaging_product": "whatsapp",
             "recipient_type": "individual",
             "to": from_number,
-            
-            
             "type": "template",
-            
             "template": {
-            "name": "algorithmicevolution",
-            "language": {
-            "code": "es_AR",
-                        },
-                            
-                        
-                            
+                "name": "algorithmicevolution",
+                "language": {
+                    "code": "es_AR",
+                }
+            }
+        })
 
-                            
-                            
-                        }
-                        })
-        
-        
-        
-        
-        
-        
-        
         headers = {
             'Content-Type': 'application/json',
-            "Authorization": f"Bearer {whatsapp_token}",  # Define your whatsapp_token here
+            "Authorization": f"Bearer {whatsapp_token}",
         }
         
         response = requests.post(url, data=payload.encode(), headers=headers)
+        
+        print(response.status_code, response.text)
+
 
 # send the response as a WhatsApp message back to the user
 '''def send_whatsapp_message(body, message):

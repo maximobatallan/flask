@@ -88,7 +88,7 @@ def handle_audio_message(audio_id):
     return message
 
 # Codigo prueba send template
-    
+    '''
 def send_whatsapp_message(body, message):
     whatsapp_token = os.environ.get("WHATSAPP_TOKEN")
    
@@ -132,9 +132,9 @@ def send_whatsapp_message(body, message):
         
         print(response.status_code, response.text)
 
-
+'''
 # send the response as a WhatsApp message back to the user
-'''def send_whatsapp_message(body, message):
+def send_whatsapp_message(body, message):
     value = body["entry"][0]["changes"][0]["value"]
     phone_number_id = value["metadata"]["phone_number_id"]
     from_number = value["messages"][0]["from"]
@@ -160,7 +160,7 @@ def send_whatsapp_message(body, message):
     response = requests.post(url, data=payload, headers=headers)
   
     response.raise_for_status()
-'''
+
 
 # create a message log for each phone number and return the current message log
 

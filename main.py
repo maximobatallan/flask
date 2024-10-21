@@ -90,7 +90,7 @@ def handle_audio_message(audio_id):
 # Codigo prueba send template
     
 def send_whatsapp_message(body, message):
-    whatsapp_token = whatsapp_token
+    whatsapp_token = os.environ.get("WHATSAPP_TOKEN")
 
    
     message_type = body['entry'][0]['changes'][0]['value']['messages'][0]['type']
